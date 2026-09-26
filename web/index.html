@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أمين — مدقّق الأمانة الشرعية في الترجمات</title>
+<meta name="description" content="أمين: أداة تكشف انحراف الدلالة الشرعية في ترجمات المحتوى الإسلامي وتقترح التصحيح من مصادر معتمدة على منهج السلف الصالح.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon fill='%23c8a24a' points='50,2 61.5,22.3 83.9,16.1 77.7,38.5 98,50 77.7,61.5 83.9,83.9 61.5,77.7 50,98 38.5,77.7 16.1,83.9 22.3,61.5 2,50 22.3,38.5 16.1,16.1 38.5,22.3'/%3E%3Ccircle cx='50' cy='50' r='24' fill='%231b2a55'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="star8" viewBox="0 0 100 100">
+      <polygon points="50.0,2.0 61.5,22.3 83.9,16.1 77.7,38.5 98.0,50.0 77.7,61.5 83.9,83.9 61.5,77.7 50.0,98.0 38.5,77.7 16.1,83.9 22.3,61.5 2.0,50.0 22.3,38.5 16.1,16.1 38.5,22.3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="band">
+  <div class="band-inner">
+    <div class="brand">
+      <svg class="brand-star" viewBox="0 0 100 100" aria-hidden="true">
+        <use href="#star8" class="s-outer"/>
+        <polygon class="s-inner" points="50,20 71,29 80,50 71,71 50,80 29,71 20,50 29,29"/>
+      </svg>
+      <div>
+        <h1>أمين</h1>
+        <p class="tagline">مدقّق الأمانة الشرعية في ترجمات المحتوى الإسلامي</p>
+      </div>
+    </div>
+    <nav class="steps" aria-label="مراحل العمل">
+      <span class="step is-on" data-step="1"><i></i>النص</span>
+      <span class="step" data-step="2"><i></i>التقرير</span>
+      <span class="step" data-step="3"><i></i>النسخة المصححة</span>
+    </nav>
+  </div>
+  <div class="band-edge" aria-hidden="true"></div>
+</header>
+
+<main>
+
+  <!-- ═══════════ الإدخال ═══════════ -->
+  <section id="input" class="panel">
+    <div class="section-head">
+      <h2><svg class="h-star"><use href="#star8"/></svg>النص وترجمته</h2>
+      <div class="samples" id="samples" aria-label="نصوص تجريبية"></div>
+    </div>
+
+    <div class="twin">
+      <div class="frame">
+        <label for="arabic" class="frame-label">الأصل العربي</label>
+        <textarea id="arabic" dir="rtl" rows="9" placeholder="الصق النص العربي هنا…"></textarea>
+      </div>
+      <div class="frame">
+        <div class="frame-label-row">
+          <label for="translation" class="frame-label">الترجمة</label>
+          <div class="lang-switch" role="radiogroup" aria-label="لغة الترجمة">
+            <label><input type="radio" name="lang" value="" checked><span>تلقائي</span></label>
+            <label><input type="radio" name="lang" value="en"><span>English</span></label>
+            <label><input type="radio" name="lang" value="fr"><span>Français</span></label>
+          </div>
+        </div>
+        <textarea id="translation" dir="ltr" rows="9" placeholder="Paste the translation here… / Collez la traduction ici…"></textarea>
+      </div>
+    </div>
+
+    <fieldset class="audience">
+      <legend>الجمهور المخاطَب <small>— تحدده الجهة، ولا تستنتجه الأداة عن الأفراد</small></legend>
+      <div class="tiles" id="audiences"></div>
+    </fieldset>
+
+    <div class="actions">
+      <label class="toggle" id="llm-toggle" hidden>
+        <input type="checkbox" id="use-llm" checked> الفحص الدلالي بالنموذج اللغوي
+      </label>
+      <button id="run" class="btn-octa">افحص الترجمة</button>
+    </div>
+    <p class="err" id="err" role="alert" hidden></p>
+  </section>
+
+  <!-- ═══════════ التقرير ═══════════ -->
+  <section id="report" class="panel" hidden>
+    <div class="summary">
+      <div class="medallion" aria-live="polite">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star8"/></svg>
+        <div class="medallion-text"><b id="total">0</b><span>موضعًا</span></div>
+      </div>
+      <div class="summary-side">
+        <p class="summary-line" id="summary-line"></p>
+        <div class="type-tiles" id="type-tiles" role="group" aria-label="تصفية بحسب نوع الخلل"></div>
+      </div>
+    </div>
+
+    <div class="section-head"><h2><svg class="h-star"><use href="#star8"/></svg>الترجمة مع المواضع</h2></div>
+    <div class="frame frame-read"><div id="marked" class="marked" dir="ltr"></div></div>
+
+    <div class="section-head">
+      <h2><svg class="h-star"><use href="#star8"/></svg>التنبيهات</h2>
+      <div class="bulk">
+        <button class="btn-line" id="accept-all">قبول كل المقترحات الموثقة</button>
+        <button class="btn-line" id="reset-all">إعادة الضبط</button>
+      </div>
+    </div>
+    <div id="cards" class="cards"></div>
+
+    <div class="section-head"><h2><svg class="h-star"><use href="#star8"/></svg>ملاءمة الخطاب للجمهور</h2></div>
+    <div id="audience-report" class="aud-report"></div>
+  </section>
+
+  <!-- ═══════════ النسخة المصححة ═══════════ -->
+  <section id="corrected-sec" class="panel" hidden>
+    <div class="section-head">
+      <h2><svg class="h-star"><use href="#star8"/></svg>النسخة المصححة</h2>
+      <div class="bulk">
+        <button class="btn-line" id="copy">نسخ</button>
+        <button class="btn-line" id="export-html">تصدير التقرير</button>
+        <button class="btn-line" id="export-json">تصدير JSON</button>
+        <button class="btn-line" id="print">طباعة</button>
+      </div>
+    </div>
+    <div class="frame frame-read"><div id="corrected" class="marked" dir="ltr"></div></div>
+    <p class="note">تُطبَّق هنا المقترحات التي قبلتها فقط. المواضع التي تحتاج مراجعة بشرية لا تُغيَّر آليًّا.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="band-edge flip" aria-hidden="true"></div>
+  <div class="foot-inner">
+    <p class="ayah">﴿ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ ۖ وَجَادِلْهُم بِالَّتِي هِيَ أَحْسَنُ﴾ <small>[النحل: 125]</small></p>
+    <p>أداة مساعدة للمراجع الشرعي: تكتشف ولا تؤلّف، ولا تُفتي. المقابلات من ترجمات معاني القرآن المعتمدة، والنقول موثقة بالكتاب والصفحة.</p>
+  </div>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

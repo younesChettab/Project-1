@@ -1,0 +1,112 @@
+# نصوص تجريبية. الأصل العربي واحد، ولكل لغة ترجمة فيها أخطاء مزروعة عمدًا وترجمة سليمة.
+# النصوص القرآنية والحديثية في الأصل منقولة من المصادر الموثقة في amin/sources/.
+# expected: الأخطاء المزروعة (القاعدة ومعرّف البند) لقياس الاستدعاء في eval/run_eval.py
+
+arabic: &AR |
+  إن الذين يبايعون رسول الله إنما يبايعون الله، و﴿يَدُ اللَّهِ فَوْقَ أَيْدِيهِمْ﴾.
+  والله سبحانه ﴿عَلَى الْعَرْشِ اسْتَوَىٰ﴾ استواءً يليق بجلاله.
+  وقد أمر الله المؤمنين بإقامة الصلاة وإيتاء الزكاة.
+  والشهداء أحياء عند ربهم يرزقون.
+  وأولياء الله هم المؤمنون المتقون.
+  وشُرع الجهاد في سبيل الله لرد العدوان، ولا يجوز الاعتداء على من لم يقاتل.
+  ونحن ندعو الكافرين إلى التوحيد بالحكمة والموعظة الحسنة.
+  قال رسول الله صلى الله عليه وسلم: «يَنْزِلُ رَبُّنَا تَبَارَكَ وَتَعَالَى كُلَّ لَيْلَةٍ إِلَى السَّمَاءِ الدُّنْيَا» متفق عليه.
+
+samples:
+
+  - id: en-seeded
+    title_ar: 'ترجمة إنجليزية فيها أخطاء مزروعة'
+    lang: en
+    audience: non_muslims
+    arabic: *AR
+    translation: |
+      Those who pledge allegiance to the Messenger are pledging to God, and God's power is over their hands.
+      And God has established His authority over the Throne in a manner befitting His majesty.
+      Allah commanded the believers to establish prayer and give charity.
+      The martyrs are alive with their Lord, receiving provision.
+      The saints of Allah are the pious believers.
+      The holy war was ordained in the Way of Allah to repel aggression, and it is permitted to attack those who did not fight.
+      We invite the infidels to Tawheed with wisdom and fair preaching.
+      The Messenger said: "The mercy of our Lord descends every night to the lowest heaven."
+    expected:
+      - {rule: 'ayah:free-translation'}
+      - {rule: 'ayah:free-translation'}
+      - {rule: 'tawil:sifah-yad'}
+      - {rule: 'golden:allah'}
+      - {rule: 'golden:allah'}  # «God» في الجملتين الأولى والثانية
+      - {rule: 'tawil:sifah-istiwa'}
+      - {rule: 'golden:salah'}
+      - {rule: 'golden:zakah'}
+      - {rule: 'forbidden:shaheed'}
+      - {rule: 'forbidden:awliya'}
+      - {rule: 'forbidden:jihad'}
+      - {rule: 'omission:negation'}
+      - {rule: 'forbidden:kafir'}
+      - {rule: 'bare:tawheed'}
+      - {rule: 'tawil:sifah-nuzul'}
+      - {rule: 'hadith:salawat'}
+      - {rule: 'hadith:no-source'}
+
+  - id: en-clean
+    title_ar: 'ترجمة إنجليزية سليمة'
+    lang: en
+    audience: non_muslims
+    arabic: *AR
+    translation: |
+      Those who pledge allegiance to the Messenger ﷺ are pledging to Allah, and "the Hand of Allah is over their hands" [48:10].
+      And Allah "rose over (Istawa) the Throne (in a manner that suits His Majesty)" [20:5].
+      Allah commanded the believers to establish the Salah (Prayer) and give the Zakah (obligatory charity).
+      The Shuhada (Martyrs) are alive with their Lord, receiving provision.
+      The Auliya' of Allah (the believers who fear Allah) are the pious believers.
+      Jihad (striving in the Way of Allah) was ordained to repel aggression, and it is not permitted to attack those who did not fight.
+      We invite the Kafirun (Disbelievers) to Tawheed (Islamic Monotheism) with wisdom and fair preaching.
+      The Messenger of Allah ﷺ said: "Our Lord, blessed and exalted, descends every night to the lowest heaven" (Agreed upon: al-Bukhari and Muslim).
+    expected: []
+
+  - id: fr-seeded
+    title_ar: 'ترجمة فرنسية فيها أخطاء مزروعة'
+    lang: fr
+    audience: new_muslims
+    arabic: *AR
+    translation: |
+      Ceux qui prêtent allégeance au Messager ne font que prêter allégeance à Dieu, et la puissance d'Allah est au-dessus de leurs mains.
+      Et Allah a pris le contrôle du Trône d'une manière qui convient à Sa majesté.
+      Allah a ordonné aux croyants d'accomplir la prière et de donner l'aumône.
+      Les martyrs sont vivants auprès de leur Seigneur, bien pourvus.
+      Les saints d'Allah sont les croyants pieux.
+      La guerre sainte a été prescrite dans le sentier d'Allah pour repousser l'agression, et il est permis d'attaquer ceux qui n'ont pas combattu.
+      Nous appelons les infidèles au Tawhid avec sagesse et bonne exhortation.
+      Le Messager a dit : « La miséricorde de notre Seigneur descend chaque nuit vers le ciel le plus bas. »
+    expected:
+      - {rule: 'ayah:free-translation'}
+      - {rule: 'ayah:free-translation'}
+      - {rule: 'tawil:sifah-yad'}
+      - {rule: 'golden:allah'}
+      - {rule: 'tawil:sifah-istiwa'}
+      - {rule: 'golden:salah'}
+      - {rule: 'golden:zakah'}
+      - {rule: 'forbidden:shaheed'}
+      - {rule: 'forbidden:awliya'}
+      - {rule: 'forbidden:jihad'}
+      - {rule: 'omission:negation'}
+      - {rule: 'forbidden:kafir'}
+      - {rule: 'bare:tawheed'}
+      - {rule: 'tawil:sifah-nuzul'}
+      - {rule: 'hadith:salawat'}
+      - {rule: 'hadith:no-source'}
+
+  - id: fr-clean
+    title_ar: 'ترجمة فرنسية سليمة'
+    lang: fr
+    audience: new_muslims
+    arabic: *AR
+    translation: |
+      Ceux qui prêtent allégeance au Messager ﷺ ne font que prêter allégeance à Allah, et « la main d’Allah est au-dessus de leurs mains » [48:10].
+      Et Allah « S’est établi (Istawâ) sur le Trône » [20:5] d'une manière qui convient à Sa majesté.
+      Allah a ordonné aux croyants d'accomplir la Salat (Prière) et de donner la Zakat (aumône obligatoire).
+      Les Chouhada (Martyrs) sont vivants auprès de leur Seigneur, bien pourvus.
+      Les Awliya (alliés d’Allah) sont les croyants pieux.
+      Le Jihad (effort dans le sentier d’Allah) a été prescrit pour repousser l'agression, et il n'est pas permis d'attaquer ceux qui n'ont pas combattu.
+      Nous appelons les Kafirun (Mécréants) au Tawhid (monothéisme islamique) avec sagesse et bonne exhortation.
+      Le Messager d'Allah ﷺ a dit : « Notre Seigneur descend chaque nuit vers le ciel le plus bas » (rapporté par al-Bukhari et Muslim).
+    expected: []

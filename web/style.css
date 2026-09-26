@@ -1,0 +1,251 @@
+/* أمين — تصميم «الزخرفة الهندسية»: زليج ومشربية، تركوازي وأزرق نيلي ولمسة ذهبية */
+
+@font-face { font-family: "Amiri"; font-weight: 400; font-display: swap;
+  src: url("fonts/amiri-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Amiri"; font-weight: 700; font-display: swap;
+  src: url("fonts/amiri-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Amiri"; font-weight: 400; font-display: swap;
+  src: url("fonts/amiri-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F; }
+@font-face { font-family: "Amiri"; font-weight: 700; font-display: swap;
+  src: url("fonts/amiri-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F; }
+@font-face { font-family: "Kufi"; font-weight: 400; font-display: swap;
+  src: url("fonts/noto-kufi-arabic-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Kufi"; font-weight: 700; font-display: swap;
+  src: url("fonts/noto-kufi-arabic-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Kufi"; font-weight: 400; font-display: swap;
+  src: url("fonts/noto-kufi-arabic-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-024F, U+2000-206F; }
+@font-face { font-family: "Kufi"; font-weight: 700; font-display: swap;
+  src: url("fonts/noto-kufi-arabic-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-024F, U+2000-206F; }
+
+:root {
+  --indigo: #1b2a55;
+  --indigo-deep: #0f1a3a;
+  --turq: #0e7c86;
+  --turq-2: #14a3a8;
+  --turq-soft: #e3f3f2;
+  --gold: #c8a24a;
+  --gold-soft: #f6eed8;
+  --paper: #fbfcfb;
+  --card: #ffffff;
+  --ink: #18223a;
+  --muted: #5b6680;
+  --line: #d6e3e6;
+  --red: #a8322a;
+  --red-soft: #fbeceb;
+  --green: #1e7b4f;
+  --green-soft: #e6f4ec;
+  /* ألوان أنواع الخلل السبعة */
+  --t1: #6b4fa3; --t2: #a8322a; --t3: #b7862a; --t4: #1b2a55;
+  --t5: #c05a1c; --t6: #0e7c86; --t7: #56657f;
+  --radius: 14px;
+  --kufi: "Kufi", "Noto Kufi Arabic", "Segoe UI", Tahoma, sans-serif;
+  --naskh: "Amiri", "Traditional Arabic", "Times New Roman", serif;
+  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%230e7c86' stroke-width='0.8' opacity='0.16'%3E%3Cpolygon points='30.0,16.0 33.1,22.4 39.9,20.1 37.6,26.9 44.0,30.0 37.6,33.1 39.9,39.9 33.1,37.6 30.0,44.0 26.9,37.6 20.1,39.9 22.4,33.1 16.0,30.0 22.4,26.9 20.1,20.1 26.9,22.4'/%3E%3Cpath d='M0 0L16 16M60 0L44 16M0 60L16 44M60 60L44 44M30 0V16M30 44V60M0 30H16M44 30H60'/%3E%3C/g%3E%3C/svg%3E");
+  --tile-band: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%2314a3a8' stroke-width='1' opacity='0.35'%3E%3Cpolygon points='30.0,16.0 33.1,22.4 39.9,20.1 37.6,26.9 44.0,30.0 37.6,33.1 39.9,39.9 33.1,37.6 30.0,44.0 26.9,37.6 20.1,39.9 22.4,33.1 16.0,30.0 22.4,26.9 20.1,20.1 26.9,22.4'/%3E%3Cpath d='M0 0L16 16M60 0L44 16M0 60L16 44M60 60L44 44M30 0V16M30 44V60M0 30H16M44 30H60'/%3E%3C/g%3E%3Crect x='27' y='27' width='6' height='6' transform='rotate(45 30 30)' fill='%23c8a24a' opacity='0.5'/%3E%3C/svg%3E");
+  --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 24 12'%3E%3Cpath d='M0 0H24V2L12 12L0 2Z' fill='%231b2a55'/%3E%3Cpath d='M12 3L15 6L12 9L9 6Z' fill='%23c8a24a'/%3E%3C/svg%3E");
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; color: var(--ink); background: var(--paper) var(--tile);
+  font-family: var(--kufi); font-size: 15px; line-height: 1.75;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+/* ─── الشريط العلوي ─── */
+.band { background: var(--indigo) var(--tile-band); color: #fff; position: relative; }
+.band-inner { max-width: 1180px; margin: 0 auto; padding: 22px 20px 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.band-edge { height: 12px; background: var(--edge) repeat-x; }
+.band-edge.flip { transform: scaleY(-1); }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-star { width: 58px; height: 58px; flex: none; }
+.brand-star .s-outer { fill: var(--gold); }
+.brand-star .s-inner { fill: var(--indigo); stroke: var(--turq-2); stroke-width: 3; }
+.brand h1 { margin: 0; font-family: var(--naskh); font-size: 40px; line-height: 1; letter-spacing: 0; }
+.tagline { margin: 6px 0 0; color: #cfe3ea; font-size: 14px; }
+.steps { display: flex; gap: 6px; flex-wrap: wrap; }
+.step { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid rgba(255,255,255,.25); color: #cfe3ea; font-size: 13px;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); background: rgba(255,255,255,.04); }
+.step i { width: 9px; height: 9px; background: currentColor; transform: rotate(45deg); opacity: .6; }
+.step.is-on { background: var(--gold); color: var(--indigo-deep); border-color: var(--gold); font-weight: 700; }
+.step.is-on i { opacity: 1; }
+
+main { max-width: 1180px; margin: 0 auto; padding: 26px 20px 40px; }
+
+/* ─── الألواح والإطارات ─── */
+.panel { margin-bottom: 30px; }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 26px 0 12px; }
+.section-head h2 { margin: 0; font-size: 19px; color: var(--indigo); display: flex; align-items: center; gap: 10px; }
+.h-star { width: 20px; height: 20px; fill: var(--turq); flex: none; }
+
+.twin { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.frame {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 16px;
+  box-shadow: 0 0 0 5px #fff, 0 0 0 6px var(--line), 0 10px 26px -18px rgba(15,26,58,.35);
+}
+/* زخارف الأركان: معينات ذهبية */
+.frame::before, .frame::after { content: ""; position: absolute; width: 12px; height: 12px; background: var(--gold); transform: rotate(45deg); top: -10px; }
+.frame::before { right: -10px; } .frame::after { left: -10px; }
+.frame-label, .frame-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-weight: 700; color: var(--indigo); margin-bottom: 8px; font-size: 14px; }
+textarea { width: 100%; min-height: 210px; resize: vertical; border: 1px dashed var(--line); background: #fcfefe; border-radius: 4px; padding: 12px; line-height: 1.9; }
+#arabic { font-family: var(--naskh); font-size: 19px; }
+#translation { font-family: var(--naskh); font-size: 17px; }
+textarea:focus { outline: none; border-color: var(--turq); border-style: solid; background: #fff; }
+
+.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; font-weight: 400; }
+.lang-switch input { position: absolute; opacity: 0; pointer-events: none; }
+.lang-switch span { display: block; padding: 2px 12px; font-size: 12.5px; cursor: pointer; color: var(--muted); }
+.lang-switch input:checked + span { background: var(--turq); color: #fff; }
+.lang-switch input:focus-visible + span { outline: 2px solid var(--gold); }
+
+.samples { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--turq); color: var(--turq); background: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12.5px; cursor: pointer; }
+.chip:hover { background: var(--turq-soft); }
+
+/* ─── بلاطات الجمهور (مثمّنة) ─── */
+.audience { border: 0; padding: 0; margin: 22px 0 0; }
+.audience legend { font-weight: 700; color: var(--indigo); margin-bottom: 10px; padding: 0; }
+.audience legend small { font-weight: 400; color: var(--muted); }
+.tiles { display: flex; flex-wrap: wrap; gap: 10px; }
+.tile { position: relative; }
+.tile input { position: absolute; opacity: 0; pointer-events: none; }
+.tile span {
+  display: block; padding: 10px 20px; background: #fff; border: 0; cursor: pointer; font-size: 14px;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+  box-shadow: inset 0 0 0 1px var(--line); background: linear-gradient(#fff, #f5fafa);
+}
+.tile input:checked + span { background: var(--indigo); color: #fff; box-shadow: inset 0 0 0 2px var(--gold); }
+.tile input:focus-visible + span { box-shadow: inset 0 0 0 3px var(--gold); }
+
+.actions { display: flex; align-items: center; justify-content: flex-start; gap: 18px; margin-top: 22px; flex-wrap: wrap; }
+.btn-octa {
+  border: 0; cursor: pointer; font-weight: 700; font-size: 17px; color: #fff; padding: 14px 42px; background: var(--turq);
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 16px 100%, 0 50%);
+  box-shadow: inset 0 0 0 3px rgba(200,162,74,.9); transition: background .15s;
+}
+.btn-octa:hover { background: #0b6a73; }
+.btn-octa[disabled] { opacity: .6; cursor: progress; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13.5px; }
+.err { color: var(--red); background: var(--red-soft); padding: 10px 14px; border-radius: 6px; }
+
+.btn-line { border: 1px solid var(--indigo); background: #fff; color: var(--indigo); padding: 5px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+.btn-line:hover { background: var(--indigo); color: #fff; }
+.bulk { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ─── الملخص: الشمسة والبلاطات ─── */
+.summary { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; }
+.medallion { position: relative; width: 132px; height: 132px; flex: none; }
+.medallion svg { width: 100%; height: 100%; fill: var(--indigo); stroke: var(--gold); stroke-width: 2.5; }
+.medallion-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+.medallion-text b { font-size: 36px; line-height: 1; font-family: var(--naskh); }
+.medallion-text span { font-size: 12px; color: var(--gold-soft); }
+.summary-side { flex: 1; min-width: 260px; }
+.summary-line { margin: 0 0 12px; color: var(--muted); }
+.summary-line b { color: var(--ink); }
+.type-tiles { display: flex; flex-wrap: wrap; gap: 8px; }
+.ttile {
+  display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; padding: 5px 12px 5px 10px; font-size: 13px; border-radius: 4px;
+}
+.ttile .dia { width: 11px; height: 11px; transform: rotate(45deg); background: var(--c); flex: none; }
+.ttile b { font-family: var(--naskh); font-size: 16px; color: var(--c); }
+.ttile[aria-pressed="true"] { background: var(--c); color: #fff; border-color: var(--c); }
+.ttile[aria-pressed="true"] b { color: #fff; }
+.ttile[aria-pressed="true"] .dia { background: #fff; }
+.ttile.zero { opacity: .45; }
+
+/* ─── الترجمة المعلَّمة ─── */
+.frame-read { padding: 20px 22px; }
+.marked { font-family: var(--naskh); font-size: 18.5px; line-height: 2.15; white-space: pre-wrap; text-align: left; }
+.marked mark { background: color-mix(in srgb, var(--c) 14%, transparent); border-bottom: 2px solid var(--c); color: inherit; padding: 0 2px; cursor: pointer; border-radius: 2px; }
+.marked mark.is-wide { background: none; border-bottom: 2px dotted var(--c); }
+.marked mark.is-accepted { background: var(--green-soft); border-bottom-color: var(--green); }
+.marked mark.is-rejected { background: none; border-bottom: 1px dashed #aab; }
+.marked mark.is-dim { opacity: .35; }
+.badge { display: inline-flex; align-items: center; justify-content: center; width: 19px; height: 19px; font-family: var(--kufi); font-size: 10.5px; font-weight: 700;
+  color: #fff; background: var(--c); vertical-align: super; margin-inline-start: 2px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); line-height: 1; }
+.marked ins { text-decoration: none; background: var(--green-soft); border-bottom: 2px solid var(--green); }
+
+/* ─── بطاقات الزليج ─── */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; align-items: start; }
+.card {
+  --cut: 16px; position: relative; background: #fff; padding: 0 0 14px;
+  clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+  box-shadow: inset 0 0 0 1px var(--line); transition: transform .12s;
+}
+.card.is-focus { box-shadow: inset 0 0 0 2px var(--c); }
+.card.is-accepted { background: linear-gradient(#fff, var(--green-soft)); }
+.card.is-rejected { opacity: .55; }
+.card-top { display: flex; align-items: center; gap: 10px; padding: 12px 20px 10px; background: color-mix(in srgb, var(--c) 9%, #fff); border-bottom: 1px solid color-mix(in srgb, var(--c) 25%, #fff); }
+.card-top .num { width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: var(--c); font-weight: 700; font-size: 12px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); flex: none; }
+.card-top .tname { font-weight: 700; color: var(--c); font-size: 14px; flex: 1; }
+.sev { font-size: 11.5px; padding: 1px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.sev-high { color: var(--red); border-color: var(--red); }
+.sev-medium { color: var(--t5); border-color: var(--t5); }
+.sev-low { color: var(--muted); border-color: #b8c1d1; }
+.card-body { padding: 12px 20px 0; }
+.pair { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: baseline; margin-bottom: 8px; }
+.pair dt { font-size: 12px; color: var(--muted); }
+.pair dd { margin: 0; font-family: var(--naskh); font-size: 16.5px; direction: ltr; text-align: left; overflow-wrap: anywhere; }
+.pair .was { color: var(--red); text-decoration: line-through; text-decoration-thickness: 1px; }
+.pair .ctx { color: #2e3955; font-size: 15px; border-inline-start: 3px solid var(--c); padding-inline-start: 8px; }
+.pair .now { color: var(--green); font-weight: 700; }
+.pair .now.none { color: var(--muted); font-weight: 400; font-family: var(--kufi); font-size: 13px; direction: rtl; text-align: right; }
+.reason { font-size: 13.5px; margin: 6px 0 8px; color: #2e3955; }
+.src { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+.flags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.flag { font-size: 11.5px; padding: 1px 8px; border-radius: 4px; background: var(--gold-soft); color: #7a5a14; }
+.flag.ai { background: #eef0fa; color: var(--indigo); }
+.card-actions { display: flex; gap: 8px; padding: 0 20px; flex-wrap: wrap; }
+.act { border: 1px solid var(--line); background: #fff; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+.act.ok[aria-pressed="true"] { background: var(--green); color: #fff; border-color: var(--green); }
+.act.no[aria-pressed="true"] { background: #6b7280; color: #fff; border-color: #6b7280; }
+.act.bayan { margin-inline-start: auto; border-color: var(--gold); color: #7a5a14; }
+.act.bayan[aria-expanded="true"] { background: var(--gold); color: var(--indigo-deep); }
+
+/* ─── «البيان»: لوح ينبسط داخل البطاقة، لا نافذة محادثة ─── */
+.bayan-panel { margin: 12px 20px 0; padding: 14px 16px; background: var(--paper) var(--tile); border: 1px solid var(--gold); border-radius: 4px; font-size: 13.5px; }
+.bayan-panel h4 { margin: 0 0 6px; color: var(--indigo); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.bayan-panel h4::before { content: ""; width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+.bayan-panel section + section { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.bayan-ayah { font-family: var(--naskh); font-size: 19px; line-height: 2; margin: 2px 0; }
+.bayan-tr { font-family: var(--naskh); direction: ltr; text-align: left; font-size: 15.5px; color: #2e3955; margin: 0 0 4px; }
+.bayan-quote { font-family: var(--naskh); font-size: 17px; line-height: 1.95; margin: 4px 0; padding-inline-start: 12px; border-inline-start: 3px solid var(--turq); }
+.bayan-cite { font-size: 12px; color: var(--muted); }
+.bayan-cite a { color: var(--turq); }
+.pending { color: #7a5a14; font-size: 12px; }
+
+.aud-report { display: flex; flex-wrap: wrap; gap: 12px; }
+.metric { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 16px; min-width: 140px; }
+.metric b { display: block; font-family: var(--naskh); font-size: 24px; color: var(--indigo); line-height: 1.2; }
+.metric span { font-size: 12.5px; color: var(--muted); }
+.note { color: var(--muted); font-size: 13px; }
+
+.empty { text-align: center; padding: 30px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); color: var(--green); }
+
+/* ─── التذييل ─── */
+.foot { background: var(--indigo) var(--tile-band); color: #cfe3ea; margin-top: 30px; }
+.foot-inner { max-width: 1180px; margin: 0 auto; padding: 18px 20px 26px; text-align: center; font-size: 13px; }
+.foot .ayah { font-family: var(--naskh); font-size: 21px; color: var(--gold-soft); margin: 4px 0 8px; }
+
+/* ─── الجوال ─── */
+@media (max-width: 760px) {
+  .twin { grid-template-columns: 1fr; }
+  .band-inner { padding: 16px; }
+  main { padding: 18px 16px 30px; }
+  .brand h1 { font-size: 32px; }
+  .cards { grid-template-columns: 1fr; }
+  .summary { justify-content: center; text-align: center; }
+  .medallion { width: 110px; height: 110px; }
+  .type-tiles { justify-content: center; }
+  .frame { box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--line); }
+}
+
+@media print {
+  .band, .foot, #input, .bulk, .card-actions, .actions { display: none !important; }
+  body { background: #fff; }
+  .card { clip-path: none; box-shadow: 0 0 0 1px #999; break-inside: avoid; }
+}

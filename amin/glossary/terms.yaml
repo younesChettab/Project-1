@@ -1,0 +1,494 @@
+# قاموس «أمين» للمصطلحات الشرعية — على منهج السلف الصالح
+#
+# القاعدة الذهبية: يُكتب المصطلح الشرعي بلفظه العربي بالحروف اللاتينية أولًا،
+# ثم الترجمة الأقرب بين قوسين. مثال: Shaheed (Martyr)
+#
+# الحقول:
+#   id            معرّف فريد
+#   ar            صيغ المصطلح في العربية (تُطبَّع قبل المطابقة)
+#   translit      أنماط اللفظ المنقول بالحروف اللاتينية (تعابير نمطية، بلا حساسية لحالة الأحرف)
+#   gloss         كلمات الترجمة المجردة لكل لغة؛ ورودها وحدها دون اللفظ العربي = مخالفة للقاعدة الذهبية
+#   forbidden     مقابلات خاطئة أو مسيئة لكل لغة
+#   forbidden_type نوع الخلل عند ورود مقابل محظور (1 حمولة دخيلة، 2 مسيء)
+#   approved      الصيغة المعتمدة المقترحة لكل لغة
+#   note_ar       تعريف المصطلح بأسلوب دعوي على منهج السلف
+#   source        مرجع المقابل المعتمد
+#   global        true = يُفحص المقابل المحظور ولو لم يرد المصطلح في الأصل العربي
+#   reviewed      false حتى يعتمده المراجع الشرعي
+#
+# مصادر المقابلات: ترجمة الهلالي وخان (en-al-hilali-khan) وترجمة حميد الله (fr-hamidullah)
+# كما جُلبت من quran.com عبر أداة Quran_AI بتاريخ 2026-09-26.
+
+terms:
+
+  - id: allah
+    ar: ['الله', 'لله', 'بالله', 'والله', 'فالله', 'تالله']
+    translit: ['all[aâā]h']
+    gloss: {en: ['God'], fr: ['Dieu']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Allah', fr: 'Allah'}
+    note_ar: 'لفظ الجلالة عَلَمٌ على الرب سبحانه لا يُترجم؛ إبقاؤه «Allah» يحفظ خصوصيته ويمنع التباسه بمفهوم الإله في الأديان الأخرى، وعليه ترجمة الهلالي وخان وترجمة حميد الله.'
+    source: 'الهلالي وخان: Allâh (7:54)، حميد الله: Allah (48:10)'
+    severity: low
+    reviewed: false
+
+  - id: shaheed
+    ar: ['شهيد', 'شهداء', 'الشهيد', 'الشهداء', 'استشهد', 'استشهاد']
+    translit: ['sh[aā]h[iīe]e?ds?', 'shuhad[aā]', 'ch[aâ]h[iî]ds?', 'chouhad[aâ]']
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['martyrs?', 'martyrdom'], fr: ['martyrs?']}
+    forbidden_type: 1
+    approved: {en: 'Shaheed (Martyr)', fr: 'Chahid (Martyr)'}
+    note_ar: 'الشهيد في الشرع من قُتل في سبيل الله لإعلاء كلمته؛ وكلمة martyr تحمل في الثقافة الغربية دلالة كنسية على من مات لأجل عقيدته المسيحية، فيُقدَّم اللفظ العربي ثم المعنى بين قوسين.'
+    source: 'القاعدة الذهبية؛ وانظر 3:169 عند الهلالي وخان: those who are killed in the Way of Allâh'
+    severity: medium
+    reviewed: false
+
+  - id: kafir
+    ar: ['كافر', 'كافرون', 'كافرين', 'الكافر', 'الكافرون', 'الكافرين', 'كفار', 'الكفار', 'كفروا']
+    translit: ['k[aāâ]f[iīî]r(?:[uū]n|[iī]n|s|ine?s?)?', 'kuff[aā]r']
+    gloss: {en: ['disbelievers?', 'unbelievers?'], fr: ['mécréants?']}
+    forbidden: {en: ['infidels?'], fr: ['infidèles?']}
+    forbidden_type: 2
+    global: true
+    approved: {en: 'Kafir (Disbeliever)', fr: 'Kafir (Mécréant)'}
+    note_ar: 'الكافر من لم يؤمن بالله ورسوله؛ وكلمة infidel مشحونة تاريخيًّا بخطاب الحروب الصليبية ومنفّرة للمخاطَب، والشرع أمر بالقول الحسن ﴿وَجَادِلْهُم بِالَّتِي هِيَ أَحْسَنُ﴾. تنبيه للمراجع: ترد «infidèles» في ترجمة حميد الله للآية 109:1 كما في quran.com، فيُحسم اختيار المقابل الفرنسي عند الاعتماد.'
+    source: 'الهلالي وخان 109:1: Al-Kafirûn (disbelievers in Allâh…)'
+    severity: high
+    reviewed: false
+
+  - id: jihad
+    ar: ['جهاد', 'الجهاد', 'مجاهد', 'مجاهدين', 'المجاهدين', 'يجاهد', 'جاهدوا']
+    translit: ['jih[aā]d', 'dj?ih[aâ]d', 'muj[aā]hid']
+    gloss: {en: ['striving', 'struggle'], fr: ['effort', 'combat dans le sentier']}
+    forbidden: {en: ['holy wars?'], fr: ['guerres? saintes?']}
+    forbidden_type: 2
+    global: true
+    approved: {en: 'Jihad (striving in the Way of Allah)', fr: 'Jihad (effort dans le sentier d’Allah)'}
+    note_ar: 'الجهاد بذل الجهد في سبيل الله بضوابطه الشرعية؛ و«الحرب المقدسة» مصطلح نشأ في سياق الحروب الصليبية ولا يطابق المفهوم الشرعي.'
+    source: 'الهلالي وخان 2:190: fight in the Way of Allâh … [the first one revealed in connection with Jihâd]'
+    severity: high
+    reviewed: false
+
+  - id: salah
+    ar: ['الصلاة', 'صلاة', 'الصلوات', 'صلوات', 'اقيموا الصلاة', 'يصلي', 'يصلون']
+    translit: ['sal[aâā]h?t?\b', 'as-?sal[aâā]', 'ṣal[aā]t', 'sal[aâ]t']
+    gloss: {en: ['prayers?'], fr: ['prières?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Salah (Prayer)', fr: 'Salat (Prière)'}
+    note_ar: 'الصلاة في اللغة الدعاء، وفي الشرع عبادة مخصوصة ذات أقوال وأفعال مفتتحة بالتكبير مختتمة بالتسليم؛ وكلمة prayer وحدها تُفهم دعاءً حرًّا، فيُقدَّم اللفظ العربي.'
+    source: 'الهلالي وخان 2:43: As-Salât (Iqâmat-as-Salât)؛ حميد الله 2:43: la prière (As-Ṣalāt)'
+    severity: medium
+    reviewed: false
+
+  - id: zakah
+    ar: ['الزكاة', 'زكاة', 'الزكاه', 'آتوا الزكاة']
+    translit: ['zak[aâā][ht]', 'az-?zak[aā]']
+    gloss: {en: ['charity', 'alms', 'almsgiving', 'poor-?due'], fr: ['aumônes?', 'charité']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Zakah (obligatory charity)', fr: 'Zakat (aumône obligatoire)'}
+    note_ar: 'الزكاة ركن من أركان الإسلام، حق واجب في مال مخصوص؛ و charity وحدها توحي بالتطوع، فيضيع وصف الوجوب.'
+    source: 'الهلالي وخان 2:43: give Zakât؛ حميد الله 2:43: l''aumône (Az-Zakāt)'
+    severity: medium
+    reviewed: false
+
+  - id: awliya
+    ar: ['اولياء الله', 'اولياء', 'ولي الله', 'الاولياء']
+    translit: ['auliy[aā]', 'awliy[aā]', 'wal[iī]y?\b']
+    gloss: {en: ['allies', 'friends of allah'], fr: ['alliés']}
+    forbidden: {en: ['saints?'], fr: ['saints?']}
+    forbidden_type: 1
+    approved: {en: 'Auliya'' of Allah (the believers who fear Allah)', fr: 'Awliya (alliés d’Allah)'}
+    note_ar: 'أولياء الله هم المؤمنون المتقون كما في الآية ﴿الَّذِينَ آمَنُوا وَكَانُوا يَتَّقُونَ﴾؛ أما saints فمفهوم كنسي يرتبط بالتقديس والتوسل بالأشخاص.'
+    source: 'الهلالي وخان 10:62: the Auliyâ’ of Allâh [i.e. those who believe…]؛ حميد الله 10:62: les alliés d’Allah'
+    severity: high
+    reviewed: false
+
+  - id: tawheed
+    ar: ['التوحيد', 'توحيد', 'وحدانية']
+    translit: ['tawh[iīe]e?d', 'tawh[iî]d']
+    gloss: {en: ['monotheism', 'oneness of god', 'unity of god'], fr: ['monothéisme', 'unicité']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Tawheed (Islamic Monotheism)', fr: 'Tawhid (monothéisme islamique)'}
+    note_ar: 'التوحيد إفراد الله بالربوبية والألوهية والأسماء والصفات؛ و monotheism وحدها لا تنقل إلا جزءًا من المعنى.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: shirk
+    ar: ['الشرك', 'شرك', 'مشرك', 'مشركين', 'المشركين', 'المشركون', 'اشركوا']
+    translit: ['shirk', 'mushrik', 'chirk', 'mouchrik']
+    gloss: {en: ['polytheism', 'polytheists?', 'associating partners'], fr: ['polythéisme', 'polythéistes?', 'associateurs?']}
+    forbidden: {en: ['pagans?', 'heathens?'], fr: ['païens?']}
+    forbidden_type: 1
+    approved: {en: 'Shirk (associating partners with Allah)', fr: 'Chirk (association à Allah)'}
+    note_ar: 'الشرك صرف شيء من العبادة لغير الله؛ و pagan/heathen ألفاظ ذات حمولة تاريخية غربية لا تطابق المعنى الشرعي.'
+    source: 'القاعدة الذهبية؛ الهلالي وخان 109:1: Mushrikûn'
+    severity: medium
+    reviewed: false
+
+  - id: bidah
+    ar: ['بدعة', 'البدعة', 'البدع', 'بدع']
+    translit: ['bid[‘''ʿ]?ah?', 'bid[‘''ʿ]a']
+    gloss: {en: ['innovations?'], fr: ['innovations?']}
+    forbidden: {en: ['heres(y|ies)'], fr: ['hérésies?']}
+    forbidden_type: 1
+    approved: {en: 'Bid''ah (innovation in religion)', fr: 'Bid‘a (innovation dans la religion)'}
+    note_ar: 'البدعة ما أُحدث في الدين مما ليس له أصل في الشرع؛ و heresy مصطلح كنسي مرتبط بمحاكم التفتيش.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: kufr
+    ar: ['الكفر', 'كفر']
+    translit: ['kufr', 'koufr']
+    gloss: {en: ['disbelief', 'unbelief'], fr: ['mécréance']}
+    forbidden: {en: ['infidelity'], fr: ['infidélité']}
+    forbidden_type: 1
+    approved: {en: 'Kufr (disbelief)', fr: 'Kufr (mécréance)'}
+    note_ar: 'الكفر ضد الإيمان؛ و infidelity تنصرف في الاستعمال المعاصر إلى الخيانة الزوجية.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: iman
+    ar: ['الايمان', 'ايمان']
+    translit: ['[iī]m[aā]n\b']
+    gloss: {en: ['faith', 'belief'], fr: ['foi']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Iman (faith)', fr: 'Iman (foi)'}
+    note_ar: 'الإيمان عند أهل السنة قول باللسان واعتقاد بالقلب وعمل بالجوارح، يزيد بالطاعة وينقص بالمعصية؛ و faith وحدها تُفهم تصديقًا قلبيًّا مجردًا.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: taqwa
+    ar: ['التقوى', 'تقوى', 'المتقين', 'المتقون', 'تتقون']
+    translit: ['taqw[aāá]', 'muttaq[uū]n', 'al-muttaq']
+    gloss: {en: ['piety', 'god-?consciousness', 'fear of god'], fr: ['piété']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Taqwa (piety)', fr: 'Taqwa (piété)'}
+    note_ar: 'التقوى أن يجعل العبد بينه وبين عذاب الله وقاية بفعل أوامره واجتناب نواهيه.'
+    source: 'الهلالي وخان 2:21: Al-Muttaqûn (the pious)'
+    severity: low
+    reviewed: false
+
+  - id: jannah
+    ar: ['الجنة', 'جنة', 'الجنات', 'جنات']
+    translit: ['jannah?', 'djanna']
+    gloss: {en: ['paradise', 'heaven', 'garden'], fr: ['paradis', 'jardins?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Jannah (Paradise)', fr: 'Janna (Paradis)'}
+    note_ar: 'الجنة دار النعيم التي أعدها الله لعباده المؤمنين؛ و heaven قد تُفهم بمعنى السماء.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: jahannam
+    ar: ['جهنم', 'النار']
+    translit: ['jahannam', 'djahannam', 'an-?n[aā]r']
+    gloss: {en: ['hell', 'hellfire', 'the fire'], fr: ['enfer', 'le feu']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Jahannam (Hell-fire)', fr: 'Jahannam (l’Enfer)'}
+    note_ar: 'جهنم دار العذاب في الآخرة.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: sunnah
+    ar: ['السنة', 'سنة النبي', 'سنته', 'السنن']
+    translit: ['sunnah?', 'sounna']
+    gloss: {en: ['traditions?', 'customs?'], fr: ['traditions?', 'coutumes?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Sunnah (the Prophet’s way)', fr: 'Sunna (voie du Prophète)'}
+    note_ar: 'السنة ما أُثر عن النبي ﷺ من قول أو فعل أو تقرير؛ و tradition توحي بالعادات الموروثة غير الملزمة.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: hadith
+    ar: ['حديث', 'الحديث', 'احاديث', 'الاحاديث']
+    translit: ['had[iī]th', 'had[iî]th', 'ah[aā]d[iī]th']
+    gloss: {en: ['traditions?', 'sayings?'], fr: ['traditions?', 'paroles?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Hadith (Prophetic narration)', fr: 'Hadith (récit prophétique)'}
+    note_ar: 'الحديث ما نُقل عن النبي ﷺ بالإسناد.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: fitrah
+    ar: ['الفطرة', 'فطرة']
+    translit: ['fitrah?', 'fitra']
+    gloss: {en: ['nature', 'innate disposition'], fr: ['nature', 'disposition innée']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Fitrah (natural disposition to worship Allah)', fr: 'Fitra (disposition naturelle)'}
+    note_ar: 'الفطرة الخِلقة التي خلق الله الناس عليها من الإقرار به وقبول التوحيد.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: dua
+    ar: ['الدعاء', 'دعاء', 'ادعوا', 'يدعو']
+    translit: ['du[‘''ʿ]?[aā]', 'dou[‘''ʿ]?a']
+    gloss: {en: ['supplications?', 'invocations?'], fr: ['invocations?', 'supplications?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Du''a (supplication)', fr: 'Dou‘a (invocation)'}
+    note_ar: 'الدعاء عبادة، وهو سؤال العبد ربه.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: dhikr
+    ar: ['الذكر', 'ذكر الله']
+    translit: ['dhikr', 'zikr', 'dhikr']
+    gloss: {en: ['remembrance'], fr: ['rappel', 'évocation']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Dhikr (remembrance of Allah)', fr: 'Dhikr (rappel d’Allah)'}
+    note_ar: 'الذكر عبادة اللسان والقلب بما شرعه الله.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: munafiq
+    ar: ['منافق', 'المنافقين', 'المنافقون', 'النفاق']
+    translit: ['mun[aā]fiq', 'nif[aā]q']
+    gloss: {en: ['hypocrites?', 'hypocrisy'], fr: ['hypocrites?', 'hypocrisie']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Munafiq (hypocrite)', fr: 'Mounafiq (hypocrite)'}
+    note_ar: 'المنافق من أظهر الإسلام وأبطن الكفر.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: halal
+    ar: ['حلال', 'الحلال']
+    translit: ['hal[aā]l']
+    gloss: {en: ['lawful', 'permissible'], fr: ['licite', 'permis']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Halal (lawful)', fr: 'Halal (licite)'}
+    note_ar: 'الحلال ما أباحه الله.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: haram
+    ar: ['حرام', 'الحرام', 'محرم']
+    translit: ['har[aā]m']
+    gloss: {en: ['unlawful', 'forbidden', 'prohibited'], fr: ['illicite', 'interdit']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Haram (unlawful)', fr: 'Haram (illicite)'}
+    note_ar: 'الحرام ما نهى الله عنه على وجه الإلزام بالترك.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: ummah
+    ar: ['الامة', 'امة محمد', 'الامة الاسلامية']
+    translit: ['ummah?', 'oumma']
+    gloss: {en: ['nation', 'community'], fr: ['nation', 'communauté']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Ummah (the Muslim nation)', fr: 'Oumma (communauté musulmane)'}
+    note_ar: 'الأمة جماعة المسلمين المتبعين لنبيهم ﷺ.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: aqidah
+    ar: ['العقيدة', 'عقيدة', 'المعتقد']
+    translit: ['[‘''ʿ]?aq[iī]dah?', '[‘''ʿ]?aq[iî]da']
+    gloss: {en: ['creed', 'belief'], fr: ['croyance', 'credo']}
+    forbidden: {en: ['dogmas?'], fr: ['dogmes?']}
+    forbidden_type: 1
+    approved: {en: '''Aqidah (creed)', fr: '‘Aqida (croyance)'}
+    note_ar: 'العقيدة ما يعقد عليه القلب من أصول الإيمان المأخوذة من الكتاب والسنة؛ و dogma توحي بالتسليم الكنسي بلا دليل.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: fatwa
+    ar: ['فتوى', 'الفتوى', 'فتاوى']
+    translit: ['fatw[aā]', 'fat[aā]w[aā]']
+    gloss: {en: ['edicts?', 'decrees?', 'rulings?'], fr: ['édits?', 'décrets?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Fatwa (religious verdict)', fr: 'Fatwa (avis juridique religieux)'}
+    note_ar: 'الفتوى بيان الحكم الشرعي لمن سأل عنه.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: ulama
+    ar: ['العلماء', 'علماء', 'العالم', 'اهل العلم']
+    translit: ['[‘''ʿ]?ulam[aā]', '[‘''ʿ]?[aā]lim\b']
+    gloss: {en: ['scholars?'], fr: ['savants?', 'érudits?']}
+    forbidden: {en: ['clergy', 'clerics?', 'priests?', 'clergymen'], fr: ['clergé', 'prêtres?', 'ecclésiastiques?']}
+    forbidden_type: 1
+    global: true
+    approved: {en: '''Ulama (scholars)', fr: '‘Oulémas (savants)'}
+    note_ar: 'ليس في الإسلام «كهنوت» ولا رجال دين يتوسطون بين العبد وربه؛ والعلماء ورثة الأنبياء في العلم والبيان.'
+    source: 'القاعدة الذهبية'
+    severity: high
+    reviewed: false
+
+  - id: ruh-qudus
+    ar: ['روح القدس', 'بروح القدس']
+    translit: ['r[uū]h? ?(al|ul)-?qudus']
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['holy (ghost|spirit)'], fr: ['saint[- ]esprit']}
+    forbidden_type: 1
+    approved: {en: 'Ruh al-Qudus (Jibril, the angel Gabriel)', fr: 'Rouh al-Qudus (l’ange Jibril)'}
+    note_ar: 'روح القدس في القرآن هو جبريل عليه السلام؛ و Holy Spirit مصطلح يرتبط في العقيدة النصرانية بأحد أقانيم التثليث، فترجمته به خلل عقدي.'
+    source: 'القاعدة الذهبية'
+    severity: high
+    reviewed: false
+
+  - id: tawbah
+    ar: ['التوبة', 'توبة', 'تاب', 'توبوا']
+    translit: ['tawbah?', 'tawba']
+    gloss: {en: ['repentance'], fr: ['repentir']}
+    forbidden: {en: ['penance'], fr: ['pénitence']}
+    forbidden_type: 1
+    approved: {en: 'Tawbah (repentance)', fr: 'Tawba (repentir)'}
+    note_ar: 'التوبة الرجوع إلى الله بترك الذنب والندم عليه والعزم على عدم العود؛ و penance طقس كنسي للتكفير عبر الكاهن.'
+    source: 'القاعدة الذهبية'
+    severity: medium
+    reviewed: false
+
+  - id: shariah
+    ar: ['الشريعة', 'شريعة', 'الشرع']
+    translit: ['shar[iī][‘''ʿ]?ah?', 'char[iî]a']
+    gloss: {en: ['islamic law'], fr: ['loi islamique']}
+    forbidden: {en: ['canon law'], fr: ['droit canon']}
+    forbidden_type: 1
+    approved: {en: 'Shari''ah (Islamic law)', fr: 'Charia (loi islamique)'}
+    note_ar: 'الشريعة ما شرعه الله لعباده من الأحكام.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: ibadah
+    ar: ['العبادة', 'عبادة', 'العبادات']
+    translit: ['[‘''ʿ]?ib[aā]dah?', 'ib[aâ]da']
+    gloss: {en: ['worship'], fr: ['adoration', 'culte']}
+    forbidden: {en: [], fr: []}
+    approved: {en: '''Ibadah (worship)', fr: '‘Ibada (adoration)'}
+    note_ar: 'العبادة اسم جامع لكل ما يحبه الله ويرضاه من الأقوال والأعمال الظاهرة والباطنة؛ و worship تُختزل غالبًا في الشعائر.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: muhammad-mohammedan
+    ar: []
+    translit: []
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['mohammedan(s|ism)?', 'muhammadan(s|ism)?'], fr: ['mahométan(s|e|es|isme)?']}
+    forbidden_type: 2
+    global: true
+    approved: {en: 'Muslim / Islam', fr: 'musulman / Islam'}
+    note_ar: 'تسمية المسلمين «محمديين» تنسبهم إلى عبادة شخص النبي ﷺ على قياس النصارى، وهي تسمية مرفوضة؛ فالإسلام دين الله، وأتباعه المسلمون.'
+    source: 'القاعدة الذهبية'
+    severity: high
+    reviewed: false
+
+# ─── الصفات: تُثبت على منهج السلف بلا تحريف ولا تعطيل ولا تكييف ولا تمثيل ───
+attributes:
+
+  - id: sifah-yad
+    name_ar: 'صفة اليد'
+    ar: ['يد الله', 'يداه', 'بيدي', 'بيده', 'يدي الله', 'بيمينه']
+    tawil:
+      en: ['(?:god|allah)[’'']s\s+(?:power|might|bounty|favou?rs?|blessings?|strength|support|authority|protection)',
+           '(?:power|might|bounty|favou?rs?|blessings?|strength|support|authority|protection)\s+of\s+(?:god|allah)',
+           '\bhis\s+(?:power|might|bounty|favou?rs?|blessings?|strength)\b',
+           'with\s+my\s+(?:own\s+)?(?:power|might|strength)']
+      fr: ['(?:la\s+)?(?:puissance|pouvoir|force|faveurs?|bienfaits?|générosité|protection|soutien)\s+d[’'']\s?allah',
+           '(?:la\s+)?(?:puissance|pouvoir|force|faveurs?|bienfaits?|générosité)\s+de\s+dieu',
+           '\bsa\s+(?:puissance|force|générosité)\b',
+           'de\s+ma\s+(?:puissance|force)']
+    approved: {en: 'the Hand of Allah', fr: 'la main d’Allah'}
+    evidence_ayat: ['48:10', '38:75', '5:64']
+    quotes: ['ibn-taymiyyah-madaniyyah-yadayn', 'ibn-taymiyyah-tadmuriyyah-asl2']
+    note_ar: 'يثبت أهل السنة لله يدين حقيقيتين تليقان بجلاله لا تماثلان أيدي المخلوقين؛ وتأويلها بالقدرة أو النعمة تحريف يخالف ظاهر النص وإجماع السلف.'
+    severity: high
+    reviewed: false
+
+  - id: sifah-istiwa
+    name_ar: 'صفة الاستواء'
+    ar: ['استوى', 'استواء', 'استواءه', 'استوائه']
+    tawil:
+      en: ['(?:established|assumed|asserted|took)\s+(?:his\s+)?(?:authority|control|dominion|sovereignty|power|mastery|charge|command)',
+           '(?:mounted|conquered|subdued|dominated|seized)\s+(?:the\s+)?throne',
+           'ascended\s+to\s+(?:power|authority)',
+           '(?:reigns?|rules?)\s+(?:over|from)\s+the\s+throne']
+      fr: ['(?:a\s+)?pris\s+(?:le\s+)?(?:contrôle|pouvoir|possession)',
+           '(?:s[’'']est\s+)?(?:emparé|rendu\s+maître)',
+           '(?:domine|dominé|règne|régné)\s+(?:sur\s+)?(?:le\s+)?trône',
+           'son\s+autorité\s+sur\s+le\s+trône']
+    approved: {en: 'rose over (Istawa) the Throne (in a manner that suits His Majesty)', fr: 'S’est établi (Istawâ) sur le Trône'}
+    evidence_ayat: ['7:54', '20:5']
+    quotes: ['ibn-taymiyyah-tadmuriyyah-istiwa', 'ibn-taymiyyah-tadmuriyyah-asl2']
+    note_ar: 'الاستواء على العرش علو وارتفاع يليق بجلال الله، معلوم المعنى مجهول الكيفية؛ وتأويله بالاستيلاء أو السيطرة تحريف.'
+    severity: high
+    reviewed: false
+
+  - id: sifah-wajh
+    name_ar: 'صفة الوجه'
+    ar: ['وجه ربك', 'وجه الله', 'وجه ربه', 'وجهه الكريم', 'وجه ربهم']
+    tawil:
+      en: ['(?:presence|essence|pleasure|reward|self)\s+of\s+(?:your|his|their|thy)?\s*lord',
+           '(?:presence|essence|pleasure|reward)\s+of\s+(?:god|allah)',
+           'for\s+the\s+sake\s+of\s+(?:god|allah)',
+           '(?:your|thy)\s+lord\s+himself\s+(?:will\s+)?remains?']
+      fr: ['(?:la\s+)?(?:présence|essence|satisfaction|agrément|récompense)\s+de\s+(?:ton|votre|leur)\s+seigneur',
+           '(?:la\s+)?(?:présence|essence|satisfaction|agrément)\s+d[’'']\s?allah']
+    approved: {en: 'the Face of your Lord', fr: 'la Face (Wajh) de ton Seigneur'}
+    evidence_ayat: ['55:27']
+    quotes: ['ibn-taymiyyah-tadmuriyyah-asl2']
+    note_ar: 'يثبت أهل السنة لله وجهًا حقيقيًّا يليق بجلاله؛ وتأويله بالذات أو الثواب أو الرضا تعطيل للصفة.'
+    severity: high
+    reviewed: false
+
+  - id: sifah-ayn
+    name_ar: 'صفة العين'
+    ar: ['على عيني', 'باعيننا', 'باعينهم', 'بعيني']
+    tawil:
+      en: ['under\s+my\s+(?:care|watch|supervision|protection|guardianship|sight|knowledge)',
+           'under\s+our\s+(?:care|watch|supervision|protection|guardianship|sight)']
+      fr: ['sous\s+ma\s+(?:sollicitude|protection|surveillance|garde|vigilance)',
+           'sous\s+notre\s+(?:sollicitude|protection|surveillance|garde)']
+    approved: {en: 'under My Eye', fr: 'sous Mon œil'}
+    evidence_ayat: ['20:39']
+    quotes: ['ibn-taymiyyah-tadmuriyyah-asl2']
+    note_ar: 'يثبت أهل السنة لله عينين حقيقيتين تليقان بجلاله؛ وتأويلها بالرعاية وحدها أو العلم تعطيل.'
+    severity: high
+    reviewed: false
+
+  - id: sifah-maji
+    name_ar: 'صفة المجيء'
+    ar: ['وجاء ربك', 'جاء ربك', 'ياتي ربك', 'يأتي ربك']
+    tawil:
+      en: ['(?:command|order|decree|punishment|judgment|power|matter)\s+of\s+(?:your|thy)\s+lord\s+(?:comes|came|will\s+come|arrives)',
+           '(?:your|thy)\s+lord[’'']s\s+(?:command|order|decree|punishment|judgment)\s+(?:comes|came|will\s+come|arrives)']
+      fr: ['(?:l[’'']ordre|le\s+commandement|le\s+décret|le\s+jugement)\s+de\s+(?:ton|votre)\s+seigneur\s+(?:viendra|vient|arrivera)']
+    approved: {en: 'your Lord comes', fr: 'ton Seigneur viendra'}
+    evidence_ayat: ['89:22']
+    quotes: ['ibn-taymiyyah-tadmuriyyah-asl2']
+    note_ar: 'مجيء الله يوم القيامة مجيء حقيقي يليق بجلاله؛ وتأويله بمجيء أمره تحريف.'
+    severity: high
+    reviewed: false
+
+  - id: sifah-nuzul
+    name_ar: 'صفة النزول'
+    ar: ['ينزل ربنا', 'ينزل الله', 'نزول الله', 'نزول الرب']
+    tawil:
+      en: ['(?:mercy|command|angels?|blessings?|grace)\s+of\s+(?:our|the)\s+lord\s+(?:descends|comes\s+down)',
+           '(?:our|the)\s+lord[’'']s\s+(?:mercy|command|blessings?|grace)\s+(?:descends|comes\s+down)',
+           '(?:his|allah[’'']s|god[’'']s)\s+(?:mercy|command|blessings?|grace)\s+(?:descends|comes\s+down)']
+      fr: ['(?:la\s+miséricorde|l[’'']ordre|la\s+grâce)\s+de\s+notre\s+seigneur\s+descend',
+           '(?:sa|la)\s+(?:miséricorde|grâce)\s+(?:d[’'']allah\s+)?descend']
+    approved: {en: 'Our Lord descends', fr: 'Notre Seigneur descend'}
+    evidence_hadith: ['bukhari:1145', 'muslim:758a']
+    quotes: ['ibn-taymiyyah-tadmuriyyah-istiwa']
+    note_ar: 'نزول الله إلى السماء الدنيا نزول حقيقي يليق بجلاله كما أخبر النبي ﷺ؛ وتأويله بنزول الرحمة أو الأمر تحريف.'
+    severity: high
+    reviewed: false
