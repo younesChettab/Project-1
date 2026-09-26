@@ -27,7 +27,7 @@ _HADITH_SRC_AR = re.compile(r"(رواه|اخرجه|متفق عليه|في الص
 _HADITH_SRC_T = re.compile(r"(bukh[aā]r[iī]|muslim\b|ab[uū] d[aā]w[uū]d|tirmidh|nas[aā]['’]?[iī]|ibn m[aā]jah|ahmad|agreed upon|reported by|narrated by|rapporté|muttafaq|al-bukh)", re.I)
 _SALAWAT_AR = re.compile(r"(صلي الله عليه وسلم|ﷺ|عليه الصلاه والسلام)")
 _SALAWAT_T = re.compile(r"(ﷺ|peace be upon him|pbuh|\(saw\)|s\.a\.w|salla|que la paix|paix et (le )?salut|sws|صلى)", re.I)
-_MESSENGER_T = re.compile(r"\b(messenger|prophet|proph[èe]te|messager)\b", re.I)
+_MESSENGER_T = re.compile(r"\b(muhammad|mohammed|messenger|prophet|proph[èe]te|messager)\b", re.I)
 
 
 def _content_words(s: str) -> set[str]:

@@ -30,6 +30,11 @@
         <p class="tagline">مدقّق الأمانة الشرعية في ترجمات المحتوى الإسلامي</p>
       </div>
     </div>
+    <nav class="tabs" aria-label="أقسام المنصة">
+      <a href="#check" class="tab is-on" data-view="check">المدقّق</a>
+      <a href="#glossary" class="tab" data-view="glossary">القاموس</a>
+      <a href="#about" class="tab" data-view="about">عن أمين</a>
+    </nav>
     <nav class="steps" aria-label="مراحل العمل">
       <span class="step is-on" data-step="1"><i></i>النص</span>
       <span class="step" data-step="2"><i></i>التقرير</span>
@@ -39,7 +44,7 @@
   <div class="band-edge" aria-hidden="true"></div>
 </header>
 
-<main>
+<main id="view-check" class="view">
 
   <!-- ═══════════ الإدخال ═══════════ -->
   <section id="input" class="panel">
@@ -50,12 +55,16 @@
 
     <div class="twin">
       <div class="frame">
-        <label for="arabic" class="frame-label">الأصل العربي</label>
+        <div class="frame-label-row">
+          <label for="arabic" class="frame-label">الأصل العربي</label>
+          <label class="upload">رفع ملف<input type="file" accept=".txt,.md,.srt,text/plain" data-target="arabic" hidden></label>
+        </div>
         <textarea id="arabic" dir="rtl" rows="9" placeholder="الصق النص العربي هنا…"></textarea>
       </div>
       <div class="frame">
         <div class="frame-label-row">
           <label for="translation" class="frame-label">الترجمة</label>
+          <label class="upload">رفع ملف<input type="file" accept=".txt,.md,.srt,text/plain" data-target="translation" hidden></label>
           <div class="lang-switch" role="radiogroup" aria-label="لغة الترجمة">
             <label><input type="radio" name="lang" value="" checked><span>تلقائي</span></label>
             <label><input type="radio" name="lang" value="en"><span>English</span></label>
@@ -124,6 +133,60 @@
     <p class="note">تُطبَّق هنا المقترحات التي قبلتها فقط. المواضع التي تحتاج مراجعة بشرية لا تُغيَّر آليًّا.</p>
   </section>
 
+</main>
+
+<main id="view-glossary" class="view" hidden>
+  <section class="panel">
+    <div class="section-head">
+      <h2><svg class="h-star"><use href="#star8"/></svg>قاموس أمين للمصطلحات الشرعية</h2>
+      <div class="gl-tools">
+        <input type="search" id="gl-search" placeholder="ابحث بالعربية أو بالمقابل: شهيد، Salah، jihad…" aria-label="بحث في القاموس">
+        <div class="lang-switch" role="radiogroup" aria-label="لغة المقابل">
+          <label><input type="radio" name="gl-lang" value="en" checked><span>English</span></label>
+          <label><input type="radio" name="gl-lang" value="fr"><span>Français</span></label>
+        </div>
+      </div>
+    </div>
+    <p class="note" id="gl-summary"></p>
+    <h3 class="gl-h">الصفات — على منهج السلف</h3>
+    <div class="gl-grid" id="gl-attrs"></div>
+    <h3 class="gl-h">المصطلحات</h3>
+    <div class="gl-grid" id="gl-terms"></div>
+  </section>
+</main>
+
+<main id="view-about" class="view" hidden>
+  <section class="panel about">
+    <div class="section-head"><h2><svg class="h-star"><use href="#star8"/></svg>عن «أمين»</h2></div>
+    <div class="about-grid">
+      <article class="frame">
+        <h3>المشكلة</h3>
+        <p>تترجم الجهات الدعوية محتواها إلى عشرات اللغات، ومراجعة كل ترجمة مراجعةً شرعية تحتاج مختصًّا يجمع العلم الشرعي وإتقان اللغة، وهو نادر. فتنحرف الدلالة: تُؤوَّل الصفات، وتدخل مصطلحات بحمولة كنسية، وتُترجم الآيات ترجمة حرة.</p>
+      </article>
+      <article class="frame">
+        <h3>المنهج</h3>
+        <p>منهج السلف الصالح في العقيدة، والمرجع في المقابلات ترجمات معاني القرآن الصادرة عن مجمع الملك فهد، والنقول من كتب شيخ الإسلام ابن تيمية وأئمة السلف بالنص والصفحة.</p>
+      </article>
+      <article class="frame">
+        <h3>القاعدة الذهبية</h3>
+        <p>يُكتب المصطلح الشرعي بلفظه العربي بالحروف اللاتينية أولًا ثم معناه بين قوسين:</p>
+        <p class="golden" dir="ltr">Shaheed (Martyr) · Salah (Prayer) · Kafir (Disbeliever)</p>
+      </article>
+      <article class="frame">
+        <h3>يكتشف ولا يؤلّف</h3>
+        <p>لا يقترح «أمين» تصحيحًا إلا من القاموس أو من ترجمة معتمدة، ولا يُفتي، ولا يحكم على حديث. وما لا سند له يُحال إلى المراجع البشري بعلامة «يحتاج مراجعة».</p>
+      </article>
+    </div>
+    <div class="section-head"><h2><svg class="h-star"><use href="#star8"/></svg>أنواع الخلل السبعة</h2></div>
+    <div class="types-list" id="types-list"></div>
+    <div class="section-head"><h2><svg class="h-star"><use href="#star8"/></svg>حدود الأداة</h2></div>
+    <ul class="limits">
+      <li>تعمل بالإنجليزية والفرنسية في هذه المرحلة، والبنية تقبل لغات أخرى.</li>
+      <li>المحاذاة بين الجمل تقوم على الطول وترتيب الجمل؛ فإذا اختلف ترتيب الترجمة كثيرًا عن الأصل ضعفت بعض الفحوص.</li>
+      <li>الفحص الدلالي بالنموذج اللغوي اختياري، ومخرجاته تُعلَّم «يحتاج مراجعة» ما لم تستند إلى القاموس.</li>
+      <li>الأداة مساعِدة للمراجع الشرعي لا بديلة عنه.</li>
+    </ul>
+  </section>
 </main>
 
 <footer class="foot">

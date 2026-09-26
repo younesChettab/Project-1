@@ -26,9 +26,9 @@ def _overlaps(a: Finding, b: Finding) -> bool:
 
 
 def _dedupe(findings: list[Finding]) -> list[Finding]:
-    # الأولوية: الأخطر، ثم نوع الصفات والمسيء قبل غيرهما، ثم الأضيق نطاقًا
+    # الأولوية: الأخطر، ثم نوع الصفات والمسيء قبل غيرهما، ثم الأوسع نطاقًا (العبارة كاملة أولى من جزئها)
     prio = {4: 0, 2: 1, 6: 2, 1: 3, 5: 4, 3: 5, 7: 6}
-    ordered = sorted(findings, key=lambda f: (SEVERITY_RANK[f.severity], prio.get(f.type, 9), (f.end - f.start)))
+    ordered = sorted(findings, key=lambda f: (SEVERITY_RANK[f.severity], prio.get(f.type, 9), -(f.end - f.start)))
     kept: list[Finding] = []
     for f in ordered:
         # تنبيهات الجملة كاملة (نفي، آية) لا تُلغي تنبيهات المصطلحات داخلها

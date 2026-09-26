@@ -110,3 +110,101 @@ samples:
       Nous appelons les Kafirun (Mécréants) au Tawhid (monothéisme islamique) avec sagesse et bonne exhortation.
       Le Messager d'Allah ﷺ a dit : « Notre Seigneur descend chaque nuit vers le ciel le plus bas » (rapporté par al-Bukhari et Muslim).
     expected: []
+
+  # ─── عينات إضافية (كُتبت قبل أي ضبط للقواعد عليها) ───
+
+  - id: en-pillars-seeded
+    title_ar: 'أركان الإسلام — إنجليزية فيها أخطاء'
+    lang: en
+    audience: general
+    arabic: |
+      أركان الإسلام خمسة، أولها شهادة أن لا إله إلا الله.
+      ثم إقامة الصلاة وإيتاء الزكاة.
+      ثم صوم رمضان وحج البيت لمن استطاع إليه سبيلًا.
+      ولا يقبل الله عملًا لم يُرد به وجهه.
+      والتوبة مفتوحة حتى تطلع الشمس من مغربها.
+      والقرآن كلام الله منزل غير مخلوق.
+    translation: |
+      The pillars of Islam are five, the first being to testify that there is no god but God.
+      Then establishing prayer and paying alms.
+      Then fasting in Ramadan and making the pilgrimage to the House for whoever is able.
+      Allah does not accept a deed that is not done sincerely for Him.
+      Penance remains open until the sun rises from the west.
+      The Koran is the speech of God, revealed and uncreated.
+    expected:
+      - {rule: 'golden:shahadah'}  # تشمل «God» في آخر العبارة
+      - {rule: 'golden:salah'}
+      - {rule: 'golden:zakah'}
+      - {rule: 'golden:sawm'}
+      - {rule: 'golden:hajj'}
+      - {rule: 'forbidden:tawbah'}
+      - {rule: 'forbidden:quran'}
+      - {rule: 'golden:allah'}  # «speech of God» في الجملة السادسة
+
+  - id: en-pillars-clean
+    title_ar: 'أركان الإسلام — إنجليزية سليمة'
+    lang: en
+    audience: general
+    arabic: |
+      أركان الإسلام خمسة، أولها شهادة أن لا إله إلا الله.
+      ثم إقامة الصلاة وإيتاء الزكاة.
+      ثم صوم رمضان وحج البيت لمن استطاع إليه سبيلًا.
+      ولا يقبل الله عملًا لم يُرد به وجهه.
+      والتوبة مفتوحة حتى تطلع الشمس من مغربها.
+      والقرآن كلام الله منزل غير مخلوق.
+    translation: |
+      The pillars of Islam are five, the first being to testify Lā ilāha illa Allāh (none has the right to be worshipped but Allah).
+      Then establishing the Salah (Prayer) and paying the Zakah (obligatory charity).
+      Then Sawm (fasting) in Ramadan and Hajj (pilgrimage to Makkah) to the House for whoever is able.
+      Allah does not accept a deed that is not done sincerely for Him.
+      Tawbah (repentance) remains open until the sun rises from the west.
+      The Qur'an is the speech of Allah, revealed and uncreated.
+    expected: []
+
+  - id: en-creed-seeded
+    title_ar: 'مسائل عقدية — إنجليزية لجمهور أكاديمي'
+    lang: en
+    audience: academics
+    arabic: |
+      خلق الله آدم وجعل ذريته خلائف في الأرض.
+      ومحمد صلى الله عليه وسلم خاتم النبيين فلا نبي بعده.
+      والكرسي مخلوق عظيم وسع السماوات والأرض.
+      ويجب على المسلم أن يأمر بالمعروف وينهى عن المنكر.
+      والربا من كبائر الذنوب.
+    translation: |
+      Allah created Adam and made his descendants God's vicegerents on earth.
+      Muhammad is the Seal of the Prophets, so there is no prophet after him.
+      The Throne extends over the heavens and the earth.
+      A Muslim must enjoin what is right and forbid what is wrong.
+      Usury is one of the major sins, obviously.
+    expected:
+      - {rule: 'forbidden:khalifah'}
+      - {rule: 'forbidden:khatam'}
+      - {rule: 'hadith:salawat'}
+      - {rule: 'forbidden:kursi'}
+      - {rule: 'golden:maruf'}
+      - {rule: 'golden:munkar'}
+      - {rule: 'golden:riba'}
+
+  - id: fr-kids-seeded
+    title_ar: 'توجيهات للناشئة — فرنسية فيها أخطاء'
+    lang: fr
+    audience: children
+    arabic: |
+      توضأ ثم استقبل القبلة وصلِّ.
+      وقل: لا إله إلا الله.
+      واصبر على طاعة الله.
+      واحذر من الشيطان.
+      ولا تأكل الربا.
+    translation: |
+      Fais tes ablutions puis tourne-toi vers la direction de la prière et prie.
+      Et dis : il n'y a de dieu que Dieu.
+      Et sois patient dans l'obéissance à Allah.
+      Méfie-toi du diable.
+      Et ne mange pas l'usure.
+    expected:
+      - {rule: 'golden:wudu'}
+      - {rule: 'golden:qiblah'}
+      - {rule: 'golden:shahadah'}
+      - {rule: 'golden:shaytan'}
+      - {rule: 'golden:riba'}

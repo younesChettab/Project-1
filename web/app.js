@@ -54,7 +54,11 @@
     });
     $("#run").addEventListener("click", runCheck);
     $("#accept-all").addEventListener("click", () => {
-      state.result.findings.forEach((f) => { if (f.replace && f.suggestion && !f.needs_review) state.decisions[f.id] = "accepted"; });
+      state.result.findings.forEach((f) => {
+        if (f.replace && f.suggestion && !f.needs_review && state.decisions[f.id] !== "accepted") {
+          state.decisions[f.id] = "accepted"; sendFeedback(f, "accepted");
+        }
+      });
       renderAll();
     });
     $("#reset-all").addEventListener("click", () => { state.decisions = {}; renderAll(); });
@@ -64,6 +68,67 @@
     $("#export-json").addEventListener("click", exportJSON);
     $("#export-html").addEventListener("click", exportHTML);
     $("#print").addEventListener("click", () => window.print());
+    document.querySelectorAll(".upload input").forEach((inp) => inp.addEventListener("change", onUpload));
+    $("#gl-search").addEventListener("input", renderGlossary);
+    document.querySelectorAll("input[name=gl-lang]").forEach((r) => r.addEventListener("change", renderGlossary));
+    $("#types-list").innerHTML = Object.entries(state.meta.types).map(([t, n]) =>
+      `<div style="--c:${TYPE_COLOR(t)}"><i></i>${esc(n)}</div>`).join("");
+    window.addEventListener("hashchange", route);
+    route();
+  }
+
+  // ───────── التنقل بين الأقسام ─────────
+  function route() {
+    const v = (location.hash || "#check").slice(1);
+    const view = ["check", "glossary", "about"].includes(v) ? v : "check";
+    document.querySelectorAll(".view").forEach((el) => (el.hidden = el.id !== "view-" + view));
+    document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("is-on", t.dataset.view === view));
+    $(".steps").hidden = view !== "check";
+    if (view === "glossary") loadGlossary();
+  }
+
+  // ───────── رفع الملفات ─────────
+  function onUpload(e) {
+    const f = e.target.files[0]; if (!f) return;
+    if (f.size > 200_000) { showErr("الملف أكبر من المسموح (200 ك.ب)."); return; }
+    const rd = new FileReader();
+    rd.onload = () => { $("#" + e.target.dataset.target).value = String(rd.result).trim(); e.target.value = ""; };
+    rd.onerror = () => showErr("تعذرت قراءة الملف.");
+    rd.readAsText(f, "utf-8");
+  }
+
+  // ───────── القاموس ─────────
+  let glossaryData = null;
+  async function loadGlossary() {
+    if (!glossaryData) {
+      try { glossaryData = await api("/api/glossary"); } catch (e) { $("#gl-summary").textContent = "تعذر تحميل القاموس."; return; }
+    }
+    renderGlossary();
+  }
+
+  const norm = (x) => String(x).toLowerCase().normalize("NFKD").replace(/[\u064B-\u065F\u0670\u0640\u0300-\u036f]/g, "").replace(/[إأآٱ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي");
+
+  function renderGlossary() {
+    if (!glossaryData) return;
+    const lang = document.querySelector("input[name=gl-lang]:checked").value;
+    const q = norm($("#gl-search").value.trim());
+    const match = (x) => !q || norm(JSON.stringify([x.id, x.name_ar, x.ar, x.approved, x.forbidden, x.note_ar])).includes(q);
+    const fbTxt = (fb) => fb ? `<span>قبول ${AR_DIGITS(fb.accepted)} · رفض ${AR_DIGITS(fb.rejected)}</span>` : "";
+    const status = (x) => x.kfc ? `<span class="kfc">معتمد وفق ترجمة المجمع</span>` : `<span class="pend">بانتظار اعتماد المراجع</span>`;
+    const attrs = glossaryData.attributes.filter(match);
+    const terms = glossaryData.terms.filter(match);
+    $("#gl-attrs").innerHTML = attrs.map((a) => `
+      <div class="gl"><p class="gl-ar">${esc(a.name_ar)}</p><p class="gl-forms">${esc(a.ar.join("، "))}</p>
+      <p class="gl-ok">${esc(a.approved[lang])}</p><p class="gl-note">${esc(a.note_ar)}</p>
+      <div class="gl-meta">${status(a)}${a.ayat.length ? `<span>الآيات: ${esc(a.ayat.join("، "))}</span>` : ""}${a.hadith?.length ? `<span>الحديث: ${esc(a.hadith.join("، "))}</span>` : ""}${fbTxt(a.feedback)}</div></div>`).join("") || `<p class="note">لا نتائج.</p>`;
+    $("#gl-terms").innerHTML = terms.map((t) => `
+      <div class="gl"><p class="gl-ar">${esc(t.ar[0] || t.id)}</p><p class="gl-forms">${esc(t.ar.slice(1).join("، "))}</p>
+      <p class="gl-ok">${esc(t.approved[lang])}</p>
+      ${t.forbidden[lang].length ? `<p class="gl-bad">${t.forbidden[lang].map((f) => `<s>${esc(f)}</s>`).join("")}</p>` : ""}
+      <p class="gl-note">${esc(t.note_ar)}</p>
+      <div class="gl-meta">${status(t)}${fbTxt(t.feedback)}</div>
+      <p class="gl-src">${esc(t.source)}</p></div>`).join("") || `<p class="note">لا نتائج.</p>`;
+    $("#gl-summary").textContent = `${AR_DIGITS(glossaryData.terms.length)} مصطلحًا و${AR_DIGITS(glossaryData.attributes.length)} صفات · المعروض: ${AR_DIGITS(terms.length + attrs.length)}`;
   }
 
   function flash(btn, txt) { const o = btn.textContent; btn.textContent = txt; setTimeout(() => (btn.textContent = o), 1400); }
@@ -209,6 +274,7 @@
       const id = a.dataset.id, v = a.dataset.act;
       state.decisions[id] = state.decisions[id] === v ? undefined : v;
       if (!state.decisions[id]) delete state.decisions[id];
+      sendFeedback(state.result.findings.find((f) => f.id === id), state.decisions[id] || "cleared");
       renderMarked(); renderCorrected();
       const card = document.getElementById("card-" + id);
       card.outerHTML = cardHTML(state.result.findings.find((f) => f.id === id));
@@ -222,6 +288,16 @@
       if (state.open.has(id)) { state.open.delete(id); $("#bayan-" + id).innerHTML = ""; b.setAttribute("aria-expanded", "false"); }
       else { state.open.add(id); b.setAttribute("aria-expanded", "true"); loadBayan(id); }
     }
+  }
+
+  function sendFeedback(f, decision) {
+    if (!f || !window.fetch) return;
+    glossaryData = null; // تتحدث إحصاءات القاموس في الزيارة القادمة
+    fetch("/api/feedback", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rule: f.rule, ref_id: f.ref_id || "", type: f.type, decision,
+        found: f.found.slice(0, 300), suggestion: f.suggestion.slice(0, 300), lang: state.result.lang }),
+    }).catch(() => { /* السجل اختياري؛ لا يعطل المراجعة */ });
   }
 
   const bayanCache = {};

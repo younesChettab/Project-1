@@ -91,7 +91,6 @@ def check_terms(k: Knowledge, pairs: list[tuple[Span, Span]], target: str, lang:
                         source=term.source, ref_id=term.id,
                         rule=f"golden:{term.id}", replace=True, sentence=si,
                     ))
-                    break  # تنبيه واحد لكل بند في الجملة يكفي
     return out
 
 
@@ -99,8 +98,8 @@ def check_bare_translit(k: Knowledge, target: str, lang: str) -> list[Finding]:
     """لفظ عربي منقول بلا معنى بين قوسين بعده — النصف الثاني من القاعدة الذهبية."""
     out = []
     for term in k.terms:
-        if term.id == "allah":
-            continue  # لفظ الجلالة لا يحتاج شرحًا
+        if "(" not in term.approved[lang]:
+            continue  # المقابل المعتمد هو اللفظ نفسه (Allah، Qur'an) فلا يحتاج شرحًا
         for pat in term.translit:
             for m in pat.finditer(target):
                 after = target[m.end():m.end() + 16]
@@ -123,7 +122,8 @@ def check_bare_translit(k: Knowledge, target: str, lang: str) -> list[Finding]:
 _NEG_AR = re.compile(r"(?:^|(?<=\s))[وف]?(?:لا|لم|لن|ليس|ليست|لستم|لسنا)(?=\s|$)")
 _NEG_T = {
     "en": re.compile(r"\b(?:not|no|never|nor|none|neither|without|cannot|n['’]t|forbidden|prohibited|impermissible)\b", re.I),
-    "fr": re.compile(r"\b(?:pas|jamais|ni|aucun|aucune|nul|nulle|sans|interdit|interdite|point|guère)\b", re.I),
+    # بالفرنسية نعدّ «ne/n'» لأنها تصاحب كل نفي (ne…pas، ne…que، ne…jamais)، ونضيف ما ينفي بلا «ne»
+    "fr": re.compile(r"(?:\bne\b|\bn['’]|\bsans\b|\binterdite?s?\b)", re.I),
 }
 _EXC_AR = re.compile(r"(?:^|(?<=\s))[وف]?(?:الا|سوي)(?=\s|$)")
 _EXC_T = {

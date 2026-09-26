@@ -390,6 +390,334 @@ terms:
     severity: high
     reviewed: false
 
+  - id: shahadah
+    ar: ['لا اله الا الله', 'لا اله الا هو', 'لا اله الا انت']
+    translit: ['l[aā] il[aā]ha? ill[aā]', 'la ilaha']
+    gloss: {en: ['(?:there is )?no (?:god|deity) (?:but|except|other than|save) (?:god|allah|him)', 'no god but', 'no deity (?:except|but)'], fr: ['il n[’'']y a (?:de|pas de|point de|pas d[’'']autre) dieu\s+(?:que|sauf|excepté|en dehors d[e’''] ?)\s*(?:dieu|allah|lui)', 'il n[’'']y a (?:de|pas de|point de) dieu', 'pas d[’'']autre dieu']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Lā ilāha illa Allāh (none has the right to be worshipped but Allah)', fr: 'Lā ilāha illa Allāh (point de divinité à part Allah)'}
+    note_ar: 'معنى «لا إله إلا الله»: لا معبود بحق إلا الله، وهو توحيد الألوهية الذي بُعثت به الرسل؛ وترجمتها بـ «no god but God» وحدها تختزلها في إثبات الخالق وتُغفل إفراده بالعبادة.'
+    source: 'الهلالي وخان 2:255: Lâ ilâha illa Huwa (none has the right to be worshipped but He)؛ حميد الله 2:255: Point de divinité à part Lui'
+    severity: medium
+    reviewed: false
+
+  - id: sawm
+    ar: ['الصيام', 'صيام', 'الصوم', 'صوم', 'يصوم', 'صائم']
+    translit: ['sa[uw]m', 'siy[aā]m', 'ṣiy[aā]m', 'as-sa[uw]m']
+    gloss: {en: ['fasting', 'fasts?'], fr: ['jeûnes?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Sawm (fasting)', fr: 'Siyam (jeûne)'}
+    note_ar: 'الصيام التعبد لله بالإمساك عن المفطرات من طلوع الفجر إلى غروب الشمس بنية.'
+    source: 'الهلالي وخان 2:183: As-Saum (the fasting)؛ حميد الله 2:183: le jeûne (aṣ-Ṣiyām)'
+    severity: low
+    reviewed: false
+
+  - id: hajj
+    ar: ['الحج', 'حج', 'الحجاج', 'حجه']
+    translit: ['hajj', 'al-hajj']
+    gloss: {en: ['pilgrimage'], fr: ['pèlerinage']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Hajj (pilgrimage to Makkah)', fr: 'Hajj (pèlerinage à La Mecque)'}
+    note_ar: 'الحج قصد مكة لأداء المناسك في وقت مخصوص، ركن من أركان الإسلام.'
+    source: 'الهلالي وخان 2:196: the Hajj and ‘Umrah (i.e. the pilgrimage to Makkah)؛ حميد الله 2:196: le pèlerinage (Al Hajj)'
+    severity: low
+    reviewed: false
+
+  - id: umrah
+    ar: ['العمرة', 'عمرة']
+    translit: ['[‘''ʿ]?umrah?']
+    gloss: {en: ['lesser pilgrimage', 'minor pilgrimage'], fr: ['petit pèlerinage']}
+    forbidden: {en: [], fr: []}
+    approved: {en: '''Umrah (the lesser pilgrimage)', fr: '‘Umra (petit pèlerinage)'}
+    note_ar: 'العمرة زيارة البيت الحرام للطواف والسعي والحلق أو التقصير.'
+    source: 'الهلالي وخان 2:196: ‘Umrah؛ حميد الله 2:196: l’Umra'
+    severity: low
+    reviewed: false
+
+  - id: sadaqah
+    ar: ['الصدقة', 'صدقة', 'الصدقات', 'صدقات', 'تصدق']
+    translit: ['sadaq[aā][ht]?', 'ṣadaqah']
+    gloss: {en: ['charity', 'alms'], fr: ['aumônes?', 'charité']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Sadaqah (charity)', fr: 'Sadaqa (aumône)'}
+    note_ar: 'الصدقة ما يُبذل من المال تقربًا إلى الله، وتطلق على الزكاة الواجبة وعلى التطوع.'
+    source: 'الهلالي وخان 2:196: Sadaqah (charity)؛ حميد الله 2:196: une aumône (Ṣadaqah)'
+    severity: low
+    reviewed: false
+
+  - id: riba
+    ar: ['الربا', 'ربا']
+    translit: ['rib[aāâ]']
+    gloss: {en: ['usury', 'interest'], fr: ['usure', 'intérêt usuraire', 'intérêt']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Riba (usury)', fr: 'Riba (intérêt usuraire)'}
+    note_ar: 'الربا الزيادة المحرمة في المعاملات المالية، وهو من الكبائر.'
+    source: 'الهلالي وخان 2:275: Ribâ (usury)؛ حميد الله 2:275: l’intérêt usuraire'
+    severity: low
+    reviewed: false
+
+  - id: ghayb
+    ar: ['الغيب', 'بالغيب']
+    translit: ['al-?gh[aā][iy]b', 'ghaib', 'ghayb']
+    gloss: {en: ['the unseen'], fr: ['l[’'']invisible']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Al-Ghaib (the Unseen)', fr: 'Al-Ghayb (l’invisible)'}
+    note_ar: 'الغيب ما غاب عن الحس مما أخبر الله به ورسوله ﷺ، كالملائكة واليوم الآخر.'
+    source: 'الهلالي وخان 2:3: the Ghaib؛ حميد الله 2:3: l’invisible'
+    severity: low
+    reviewed: false
+
+  - id: akhirah
+    ar: ['الاخره', 'بالاخره', 'اليوم الاخر']
+    translit: ['[aā]khirah?', 'al-[aā]khira']
+    gloss: {en: ['hereafter', 'afterlife', 'last day'], fr: ['au-delà', 'vie future', 'jour dernier']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Al-Akhirah (the Hereafter)', fr: 'Al-Akhira (l’au-delà)'}
+    note_ar: 'الآخرة الدار الباقية بعد البعث، والإيمان بها ركن من أركان الإيمان.'
+    source: 'الهلالي وخان 2:4: the Hereafter؛ حميد الله 2:4: la vie future'
+    severity: low
+    reviewed: false
+
+  - id: kursi
+    ar: ['الكرسي', 'كرسيه']
+    translit: ['kurs[iīî]y?']
+    gloss: {en: ['footstool', 'chair'], fr: []}
+    forbidden: {en: ['throne'], fr: []}
+    forbidden_type: 1
+    approved: {en: 'Kursi (Footstool)', fr: 'Kursîy'}
+    note_ar: 'الكرسي عند أهل السنة مخلوق عظيم غير العرش؛ فترجمة «الكرسي» بـ throne تخلط بين المخلوقين.'
+    source: 'الهلالي وخان 2:255: His Kursî'
+    severity: medium
+    reviewed: false
+
+  - id: khatam
+    ar: ['خاتم النبيين', 'خاتم الانبياء', 'خاتم الرسل']
+    translit: ['kh[aā]tam']
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['seal of the prophets'], fr: ['sceau des prophètes']}
+    forbidden_type: 1
+    approved: {en: 'the last (end) of the Prophets', fr: 'le dernier des Prophètes'}
+    note_ar: 'خاتم النبيين: آخرهم فلا نبي بعده ﷺ؛ وترجمته بالختم (seal) وحده قد تُحمل على معنى «ختم التصديق» كما تأوّله بعض الفرق الضالة، فيُصرَّح بمعنى الآخرية.'
+    source: 'الهلالي وخان 33:40: the last (end) of the Prophets؛ حميد الله 33:40: le dernier des Prophètes'
+    severity: medium
+    reviewed: false
+
+  - id: khalifah
+    ar: ['خليفه', 'خلفاء', 'خلائف']
+    translit: ['khal[iī]fah?', 'khalîfah']
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['vicegerents? of (?:god|allah)', '(?:god|allah)[’'']s (?:vicegerents?|deput(?:y|ies)|representatives?)', 'deput(?:y|ies) of (?:god|allah)'], fr: ['vicaires? d[e’''] ?(?:dieu|allah)', 'représentants? d[e’''] ?(?:dieu|allah)']}
+    forbidden_type: 1
+    approved: {en: 'Khalifah (successive generations on earth)', fr: 'Khalifa (successeur sur terre)'}
+    note_ar: 'الخليفة في الأرض: قوم يخلف بعضهم بعضًا؛ ووصف الإنسان بأنه «نائب عن الله» يوهم أن الله يغيب فيُستخلف عنه، والله منزه عن ذلك.'
+    source: 'الهلالي وخان 2:30: (mankind) generations after generations on earth'
+    severity: medium
+    reviewed: false
+
+  - id: shaytan
+    ar: ['الشيطان', 'شيطان', 'الشياطين', 'شياطين']
+    translit: ['sha[iy]t[aā]n', 'shay[aā]t[iī]n', 'chaytane?']
+    gloss: {en: ['satan', 'devils?'], fr: ['satan', 'diables?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Shaitan (Satan)', fr: 'Chaytan (Satan)'}
+    note_ar: 'الشيطان كل متمرد عاتٍ من الجن والإنس، وإبليس رأسهم.'
+    source: 'الهلالي وخان 2:102: the Shayâtîn (devils)'
+    severity: low
+    reviewed: false
+
+  - id: maruf
+    ar: ['بالمعروف', 'المعروف']
+    translit: ['ma[‘''ʿ]?r[uū]f']
+    gloss: {en: ['what is right', 'good'], fr: ['le convenable']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Al-Ma''ruf (all that Islam has ordained)', fr: 'Al-Ma‘rûf (le convenable)'}
+    note_ar: 'المعروف اسم جامع لكل ما عُرف من طاعة الله والإحسان إلى الناس.'
+    source: 'الهلالي وخان 3:110: Al-Ma‘rûf؛ حميد الله 3:110: le convenable'
+    severity: low
+    reviewed: false
+
+  - id: munkar
+    ar: ['عن المنكر', 'المنكر']
+    translit: ['munkar']
+    gloss: {en: ['what is wrong', 'evil'], fr: ['le blâmable']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Al-Munkar (all that Islam has forbidden)', fr: 'Al-Munkar (le blâmable)'}
+    note_ar: 'المنكر كل ما نهى عنه الشرع.'
+    source: 'الهلالي وخان 3:110: Al-Munkar؛ حميد الله 3:110: le blâmable'
+    severity: low
+    reviewed: false
+
+  - id: fasiq
+    ar: ['الفاسقون', 'الفاسقين', 'فاسق', 'الفسق']
+    translit: ['f[aā]siq']
+    gloss: {en: ['rebellious', 'disobedient'], fr: ['pervers']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Fasiq (disobedient to Allah)', fr: 'Fâsiq (pervers)'}
+    note_ar: 'الفاسق الخارج عن طاعة الله.'
+    source: 'الهلالي وخان 3:110: Al-Fâsiqûn (disobedient to Allâh)؛ حميد الله 3:110: des pervers'
+    severity: low
+    reviewed: false
+
+  - id: alamin
+    ar: ['العالمين']
+    translit: ['[‘''ʿ]?[aāâ]lam[iīî]n']
+    gloss: {en: ['the worlds', 'worlds'], fr: ['l[’'']univers', 'des mondes']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Al-''Alamin (mankind, jinn and all that exists)', fr: 'l’Univers (Al-‘Âlamîn)'}
+    note_ar: 'العالمون: كل ما سوى الله من المخلوقات.'
+    source: 'الهلالي وخان 1:2: the ‘Âlamîn (mankind, jinn and all that exists)؛ حميد الله 1:2: l’Univers'
+    severity: low
+    reviewed: false
+
+  - id: quran
+    ar: ['القران', 'قران']
+    translit: ['qur[’''ʾ]?[aā]n', 'coran']
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['koran'], fr: []}
+    forbidden_type: 1
+    global: true
+    approved: {en: 'Qur''an', fr: 'Coran'}
+    note_ar: 'الرسم الإنجليزي Koran رسم استشراقي قديم؛ والمعتمد في ترجمات المجمع Qur’ân.'
+    source: 'الهلالي وخان 2:4: the Qur’ân'
+    severity: low
+    reviewed: false
+
+  - id: mahomet
+    ar: []
+    translit: []
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['mahomet', 'moslems?'], fr: ['mahomet']}
+    forbidden_type: 2
+    global: true
+    approved: {en: 'Muhammad ﷺ / Muslim', fr: 'Muhammad ﷺ'}
+    note_ar: '«Mahomet» تسمية شاعت في الأدبيات الأوروبية القديمة بحمولة ازدرائية؛ و«Moslem» رسم قديم يُستبدل به Muslim.'
+    source: 'الهلالي وخان 33:40: Muhammad؛ حميد الله 33:40: Mohammed'
+    severity: high
+    reviewed: false
+
+  - id: makkah
+    ar: []
+    translit: []
+    gloss: {en: [], fr: []}
+    forbidden: {en: ['mecca'], fr: []}
+    forbidden_type: 1
+    global: true
+    approved: {en: 'Makkah', fr: 'La Mecque'}
+    note_ar: 'الرسم المعتمد في ترجمة المجمع Makkah؛ وكلمة mecca صارت في الإنجليزية اسمًا عامًّا لأي مقصد لهو أو تجارة.'
+    source: 'الهلالي وخان 2:196: the pilgrimage to Makkah'
+    severity: low
+    reviewed: false
+
+  - id: salaf
+    ar: ['السلف', 'سلف الامه', 'السلف الصالح']
+    translit: ['salaf']
+    gloss: {en: ['pious predecessors', 'early generations'], fr: ['pieux prédécesseurs']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'the Salaf (the pious predecessors)', fr: 'les Salaf (pieux prédécesseurs)'}
+    note_ar: 'السلف الصالح: الصحابة والتابعون وأتباعهم من أئمة القرون المفضلة.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: hijab
+    ar: ['الحجاب', 'حجاب', 'بخمرهن', 'الخمار']
+    translit: ['hij[aā]b', 'khim[aā]r']
+    gloss: {en: ['veils?', 'head-?covers?'], fr: ['voiles?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Hijab (Islamic covering)', fr: 'Hijab (voile islamique)'}
+    note_ar: 'الحجاب ستر المرأة ما أمر الله بستره.'
+    source: 'الهلالي وخان 24:31: to draw their veils all over Juyûbihinna'
+    severity: low
+    reviewed: false
+
+  - id: wudu
+    ar: ['الوضوء', 'وضوء', 'توضا']
+    translit: ['wu?d[uū][’'']?', 'wudhu', 'woudou']
+    gloss: {en: ['ablutions?'], fr: ['ablutions?']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Wudu (ablution)', fr: 'Woudou (ablutions)'}
+    note_ar: 'الوضوء طهارة مخصوصة شرط لصحة الصلاة.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: adhan
+    ar: ['الاذان', 'اذان', 'المؤذن', 'الموذن']
+    translit: ['adh[aā]n', 'az[aā]n']
+    gloss: {en: ['call to prayer'], fr: ['appel à la prière']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Adhan (call to prayer)', fr: 'Adhan (appel à la prière)'}
+    note_ar: 'الأذان إعلام بدخول وقت الصلاة بألفاظ مخصوصة.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: qiblah
+    ar: ['القبله', 'قبله']
+    translit: ['qiblah?']
+    gloss: {en: ['direction of prayer'], fr: ['direction de la prière']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Qiblah (direction of prayer)', fr: 'Qibla (direction de la prière)'}
+    note_ar: 'القبلة: الكعبة المشرفة التي يستقبلها المصلي.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: tawakkul
+    ar: ['التوكل', 'توكل', 'توكلوا']
+    translit: ['tawakkul']
+    gloss: {en: ['reliance', 'trust in allah'], fr: ['confiance en allah']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Tawakkul (reliance upon Allah)', fr: 'Tawakkul (confiance en Allah)'}
+    note_ar: 'التوكل صدق اعتماد القلب على الله مع الأخذ بالأسباب.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: ikhlas
+    ar: ['الاخلاص', 'اخلاص', 'مخلصين']
+    translit: ['ikhl[aā]s']
+    gloss: {en: ['sincerity'], fr: ['sincérité']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Ikhlas (sincerity to Allah)', fr: 'Ikhlas (sincérité envers Allah)'}
+    note_ar: 'الإخلاص تصفية العمل من كل شائبة، فلا يُقصد به إلا وجه الله.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: ihsan
+    ar: ['الاحسان', 'احسان']
+    translit: ['ihs[aā]n']
+    gloss: {en: ['excellence', 'perfection'], fr: ['excellence', 'perfection']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Ihsan (excellence in worship)', fr: 'Ihsan (excellence dans l’adoration)'}
+    note_ar: 'الإحسان أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: sabr
+    ar: ['الصبر', 'صبر', 'اصبروا', 'الصابرين']
+    translit: ['sabr']
+    gloss: {en: ['patience'], fr: ['patience', 'endurance']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Sabr (patience)', fr: 'Sabr (patience)'}
+    note_ar: 'الصبر حبس النفس على طاعة الله، وعن معصيته، وعلى أقداره.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
+  - id: tafsir
+    ar: ['التفسير', 'تفسير']
+    translit: ['tafs[iī]r']
+    gloss: {en: ['exegesis', 'commentary'], fr: ['exégèse', 'commentaire']}
+    forbidden: {en: [], fr: []}
+    approved: {en: 'Tafsir (explanation of the Qur''an)', fr: 'Tafsir (exégèse du Coran)'}
+    note_ar: 'التفسير بيان معاني القرآن، وأصحه تفسير القرآن بالقرآن ثم بالسنة ثم بأقوال الصحابة.'
+    source: 'القاعدة الذهبية'
+    severity: low
+    reviewed: false
+
 # ─── الصفات: تُثبت على منهج السلف بلا تحريف ولا تعطيل ولا تكييف ولا تمثيل ───
 attributes:
 
