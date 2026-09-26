@@ -18,6 +18,56 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const isWide = (f) => f.start < 0 || WIDE.test(f.rule);
 
+  // ───────── مصدر البيانات: الخادم، أو المحرك المحلي في المتصفح ─────────
+  // إن تعذر الوصول إلى الخادم (استضافة ثابتة أو صفحة واحدة) عمل «أمين» كاملًا في المتصفح عبر engine.js.
+  const local = { K: null, on: false };
+  const LS_KEY = "amin-feedback-v1";
+  function lsGet() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (_) { return {}; } }
+  function lsPut(v) { try { localStorage.setItem(LS_KEY, JSON.stringify(v)); } catch (_) { /* التخزين غير متاح */ } }
+
+  // قدرات صفحة Artifact (إن وُجدت): سؤال Claude للفحص الدلالي، وحفظ الملفات
+  const caps = { sample: null, downloads: null };
+  function initCaps() {
+    if (!window.claude || typeof window.claude.use !== "function") return;
+    window.claude.use("sample").then((fn) => {
+      caps.sample = fn;
+      if (fn && local.on) { $("#llm-toggle").hidden = false; $("#llm-toggle").lastChild.textContent = " الفحص الدلالي بسؤال Claude (من حسابك، بعد إذنك)"; }
+    }).catch(() => {});
+    window.claude.use("downloads").then((d) => { caps.downloads = d; }).catch(() => {});
+  }
+
+  async function goLocal() {
+    let data = window.AMIN_DATA;
+    if (!data) { const r = await fetch("data/knowledge.json"); if (!r.ok) throw new Error("تعذر تحميل بيانات القاموس"); data = await r.json(); }
+    local.K = window.AminEngine.compile(data); local.on = true;
+  }
+
+  const backend = {
+    async meta() {
+      if (!window.AMIN_DATA) { try { return await api("api/meta"); } catch (_) { /* ننتقل إلى الوضع المحلي */ } }
+      await goLocal();
+      return { types: local.K.types, audiences: Object.fromEntries(Object.entries(local.K.audiences).map(([k, v]) => [k, v.name_ar])), llm: false, local: true };
+    },
+    samples: () => local.on ? Promise.resolve(local.K.data.samples) : api("api/samples"),
+    check: (body) => local.on ? Promise.resolve(window.AminEngine.run(local.K, body.arabic, body.translation, body.lang, body.audience))
+      : api("api/check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }),
+    explain: (id, lang) => {
+      if (!local.on) return api(`api/explain/${encodeURIComponent(id)}?lang=${lang}`);
+      const b = window.AminEngine.explain(local.K, id, lang);
+      return b ? Promise.resolve(b) : Promise.reject(new Error("لا بيان"));
+    },
+    glossary: () => local.on ? Promise.resolve(window.AminEngine.glossary(local.K, lsGet())) : api("api/glossary"),
+    feedback(rec) {
+      if (local.on) {
+        if (rec.decision === "cleared") return;
+        const all = lsGet(), key = rec.ref_id || rec.rule;
+        all[key] ||= { accepted: 0, rejected: 0 }; all[key][rec.decision]++; lsPut(all);
+        return;
+      }
+      fetch("api/feedback", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) }).catch(() => {});
+    },
+  };
+
   async function api(path, opts) {
     const r = await fetch(path, opts);
     if (!r.ok) {
@@ -35,8 +85,9 @@
   // ───────── الإعداد ─────────
   async function init() {
     try {
-      const [meta, samples] = await Promise.all([api("/api/meta"), api("/api/samples")]);
-      state.meta = meta; state.samples = samples;
+      state.meta = await backend.meta();
+      initCaps();
+      state.samples = await backend.samples();
     } catch (e) {
       showErr("تعذر الاتصال بالخادم: " + e.message); return;
     }
@@ -47,12 +98,9 @@
     $("#llm-toggle").hidden = !state.meta.llm;
     $("#samples").addEventListener("click", (e) => {
       const b = e.target.closest(".chip"); if (!b) return;
-      const s = state.samples.find((x) => x.id === b.dataset.id);
-      $("#arabic").value = s.arabic.trim(); $("#translation").value = s.translation.trim();
-      const lr = document.querySelector(`input[name=lang][value="${s.lang}"]`); if (lr) lr.checked = true;
-      const ar = document.querySelector(`input[name=aud][value="${s.audience}"]`); if (ar) ar.checked = true;
+      loadSample(state.samples.find((x) => x.id === b.dataset.id));
     });
-    $("#run").addEventListener("click", runCheck);
+    $("#run").addEventListener("click", () => runCheck());
     $("#accept-all").addEventListener("click", () => {
       state.result.findings.forEach((f) => {
         if (f.replace && f.suggestion && !f.needs_review && state.decisions[f.id] !== "accepted") {
@@ -75,6 +123,17 @@
       `<div style="--c:${TYPE_COLOR(t)}"><i></i>${esc(n)}</div>`).join("");
     window.addEventListener("hashchange", route);
     route();
+    // يفتح «أمين» على مثال محلول حتى يظهر عمله من أول نظرة؛ ويستبدله المستخدم بنصه
+    if (!$("#arabic").value.trim() && !$("#translation").value.trim() && state.samples.length) {
+      loadSample(state.samples[0]);
+      runCheck({ scroll: false, autorun: true });
+    }
+  }
+
+  function loadSample(s) {
+    $("#arabic").value = s.arabic.trim(); $("#translation").value = s.translation.trim();
+    const lr = document.querySelector(`input[name=lang][value="${s.lang}"]`); if (lr) lr.checked = true;
+    const ar = document.querySelector(`input[name=aud][value="${s.audience}"]`); if (ar) ar.checked = true;
   }
 
   // ───────── التنقل بين الأقسام ─────────
@@ -101,7 +160,7 @@
   let glossaryData = null;
   async function loadGlossary() {
     if (!glossaryData) {
-      try { glossaryData = await api("/api/glossary"); } catch (e) { $("#gl-summary").textContent = "تعذر تحميل القاموس."; return; }
+      try { glossaryData = await backend.glossary(); } catch (e) { $("#gl-summary").textContent = "تعذر تحميل القاموس."; return; }
     }
     renderGlossary();
   }
@@ -135,29 +194,48 @@
   function showErr(m) { const e = $("#err"); e.textContent = m; e.hidden = !m; }
 
   // ───────── الفحص ─────────
-  async function runCheck() {
+  async function runCheck(opts = {}) {
     showErr("");
     const arabic = $("#arabic").value, translation = $("#translation").value;
     if (!arabic.trim() || !translation.trim()) { showErr("أدخل الأصل العربي والترجمة معًا."); return; }
     const btn = $("#run"); btn.disabled = true; btn.textContent = "جارٍ الفحص…";
     try {
-      const res = await api("/api/check", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          arabic, translation,
-          lang: document.querySelector("input[name=lang]:checked").value || null,
-          audience: document.querySelector("input[name=aud]:checked").value,
-          use_llm: $("#use-llm").checked,
-        }),
+      const res = await backend.check({
+        arabic, translation,
+        lang: document.querySelector("input[name=lang]:checked").value || null,
+        audience: document.querySelector("input[name=aud]:checked").value,
+        use_llm: $("#use-llm").checked,
       });
       Object.assign(state, { result: res, translation, arabic, decisions: {}, filter: null, open: new Set() });
       $("#report").hidden = false; $("#corrected-sec").hidden = false;
       renderAll(); setStep(2);
-      $("#report").scrollIntoView({ behavior: "smooth", block: "start" });
+      if (local.on && caps.sample && !opts.autorun && $("#use-llm").checked) semanticLocal(arabic, translation);
+      if (opts.scroll !== false) $("#report").scrollIntoView({ behavior: "smooth", block: "start" });
     } catch (e) {
       showErr("تعذر الفحص: " + e.message);
     } finally {
       btn.disabled = false; btn.textContent = "افحص الترجمة";
+    }
+  }
+
+  // الفحص الدلالي داخل صفحة Artifact: يسأل Claude بالقيود نفسها ثم يدمج ما يوافقها
+  let semanticCtl = null;
+  async function semanticLocal(arabic, translation) {
+    const res = state.result, aud = document.querySelector("input[name=aud]:checked").value;
+    semanticCtl?.abort(); semanticCtl = new AbortController();
+    const line = $("#summary-line");
+    line.insertAdjacentHTML("beforeend", ` · <span class="pending" id="sem-status">جارٍ الفحص الدلالي بسؤال Claude…</span>`);
+    try {
+      const data = await caps.sample.json(window.AminEngine.llmPrompt(local.K, arabic, translation, res, aud), { signal: semanticCtl.signal });
+      if (state.result !== res) return; // بدأ فحص جديد
+      state.result = window.AminEngine.mergeLlm(local.K, res, translation, data);
+      state.decisions = {}; renderAll();
+    } catch (e) {
+      if (state.result !== res || e?.code === "cancelled") return;
+      const msg = { not_granted: "لم يُؤذن بسؤال Claude", sampling_disabled: "Claude غير متاح لهذا الحساب",
+        rate_limited: "طلبات كثيرة؛ أعد المحاولة بعد قليل", invalid_json: "تعذر قراءة جواب الفحص الدلالي" }[e?.code] || "تعذر الفحص الدلالي";
+      if (["not_granted", "sampling_disabled", "not_declared", "capability_disabled"].includes(e?.code)) { $("#llm-toggle").hidden = true; caps.sample = null; }
+      state.result.llm = { available: true, used: false, error: msg }; renderSummary();
     }
   }
 
@@ -168,7 +246,8 @@
     const r = state.result, st = r.stats;
     $("#total").textContent = AR_DIGITS(st.total);
     const lang = r.lang === "fr" ? "الفرنسية" : "الإنجليزية";
-    const llm = r.llm.used ? "مع الفحص الدلالي" : (r.llm.error ? `دون الفحص الدلالي (${esc(r.llm.error)})` : "بالفحص الحتمي");
+    const llm = r.llm.used ? "مع الفحص الدلالي" : (r.llm.error ? `دون الفحص الدلالي (${esc(r.llm.error)})`
+      : (state.meta.local ? "بالفحص الحتمي داخل المتصفح" : "بالفحص الحتمي"));
     $("#summary-line").innerHTML =
       `ترجمة <b>${lang}</b> · خطير <b>${AR_DIGITS(st.by_severity.high)}</b> · متوسط <b>${AR_DIGITS(st.by_severity.medium)}</b> · تحسين <b>${AR_DIGITS(st.by_severity.low)}</b>` +
       ` · يحتاج مراجعة بشرية <b>${AR_DIGITS(st.needs_review)}</b> · ${llm}` +
@@ -291,13 +370,10 @@
   }
 
   function sendFeedback(f, decision) {
-    if (!f || !window.fetch) return;
+    if (!f) return;
     glossaryData = null; // تتحدث إحصاءات القاموس في الزيارة القادمة
-    fetch("/api/feedback", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rule: f.rule, ref_id: f.ref_id || "", type: f.type, decision,
-        found: f.found.slice(0, 300), suggestion: f.suggestion.slice(0, 300), lang: state.result.lang }),
-    }).catch(() => { /* السجل اختياري؛ لا يعطل المراجعة */ });
+    backend.feedback({ rule: f.rule, ref_id: f.ref_id || "", type: f.type, decision,
+      found: f.found.slice(0, 300), suggestion: f.suggestion.slice(0, 300), lang: state.result.lang });
   }
 
   const bayanCache = {};
@@ -307,7 +383,7 @@
     const key = f.ref_id + ":" + state.result.lang;
     slot.innerHTML = `<div class="bayan-panel">جارٍ جلب البيان…</div>`;
     try {
-      const b = bayanCache[key] ||= await api(`/api/explain/${encodeURIComponent(f.ref_id)}?lang=${state.result.lang}`);
+      const b = bayanCache[key] ||= await backend.explain(f.ref_id, state.result.lang);
       slot.innerHTML = bayanHTML(b);
     } catch (e) {
       slot.innerHTML = `<div class="bayan-panel">لا بيان متاح لهذا البند بعد.</div>`;
@@ -367,7 +443,13 @@
   }
 
   // ───────── التصدير ─────────
-  function download(name, content, type) {
+  async function download(name, content, type) {
+    if (caps.downloads) {
+      try { await caps.downloads.save({ filename: name, data: content }); } catch (e) {
+        if (e?.code !== "declined") showErr("تعذر حفظ الملف في هذه الصفحة.");
+      }
+      return;
+    }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([content], { type }));
     a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);

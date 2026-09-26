@@ -14,7 +14,6 @@ from pathlib import Path
 
 import yaml
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -177,9 +176,5 @@ def samples():
             for s in data["samples"]]
 
 
-app.mount("/static", StaticFiles(directory=WEB), name="static")
-
-
-@app.get("/")
-def index():
-    return FileResponse(WEB / "index.html")
+# الواجهة تُخدم من الجذر بمسارات نسبية، فتعمل كذلك على أي استضافة ثابتة لمجلد web/
+app.mount("/", StaticFiles(directory=WEB, html=True), name="web")
