@@ -37,6 +37,7 @@ class Term:
     severity: str
     is_global: bool
     reviewed: bool
+    kfc: bool
     raw: dict = field(repr=False)
 
 
@@ -65,6 +66,11 @@ class Ayah:
     partial: bool
 
 
+def _is_kfc(source: str) -> bool:
+    """المقابل مستند إلى ترجمة المعاني الصادرة عن مجمع الملك فهد (الهلالي وخان / حميد الله)."""
+    return "الهلالي" in source or "حميد الله" in source
+
+
 def _load_yaml(rel: str) -> dict:
     with open(ROOT / rel, encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -88,6 +94,7 @@ def load() -> "Knowledge":
             severity=t.get("severity", "medium"),
             is_global=bool(t.get("global", False)),
             reviewed=bool(t.get("reviewed", False)),
+            kfc=_is_kfc(t.get("source", "")),
             raw=t,
         ))
     attrs = []

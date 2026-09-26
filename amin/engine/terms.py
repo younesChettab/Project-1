@@ -32,6 +32,22 @@ def _inside_gloss(term: Term, text: str, start: int) -> bool:
     return any(p.search(before[:op]) for p in term.translit)
 
 
+_LETTERS = re.compile(r"[^\wÀ-ÿ]+")
+
+
+def _words(s: str) -> str:
+    return " " + _LETTERS.sub(" ", s.lower()).strip() + " "
+
+
+def _in_approved_quote(k: Knowledge, text: str, start: int, end: int, lang: str) -> bool:
+    """هل الكلمة جزء من اقتباس يطابق حرفيًّا ترجمة معاني معتمدة لآية؟ (الكلمة مع ثلاث كلمات قبلها)"""
+    before = _LETTERS.sub(" ", text[max(0, start - 60):start].lower()).split()[-3:]
+    if len(before) < 2:
+        return False
+    probe = " " + " ".join(before + [text[start:end].lower()]) + " "
+    return any(probe in _words(ay.tr[lang]) for ay in k.ayat)
+
+
 def check_terms(k: Knowledge, pairs: list[tuple[Span, Span]], target: str, lang: str) -> list[Finding]:
     out: list[Finding] = []
     for si, (ar, tg) in enumerate(pairs):
@@ -47,6 +63,8 @@ def check_terms(k: Knowledge, pairs: list[tuple[Span, Span]], target: str, lang:
                         s, e = tg.start + m.start(), tg.start + m.end()
                         if _inside_gloss(term, target, s):
                             continue  # مثل: Shuhada (Martyrs) — المعنى بين قوسين بعد اللفظ العربي مقبول
+                        if _in_approved_quote(k, target, s, e, lang):
+                            continue  # اقتباس مطابق لترجمة معاني المجمع — هي المرجع
                         out.append(Finding(
                             type=term.forbidden_type,
                             severity="high" if term.forbidden_type == 2 else term.severity,

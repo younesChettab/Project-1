@@ -72,7 +72,7 @@ def glossary():
     k = load()
     return {
         "terms": [{"id": t.id, "ar": t.ar, "approved": t.approved, "note_ar": t.note_ar, "source": t.source,
-                   "severity": t.severity, "reviewed": t.reviewed} for t in k.terms],
+                   "severity": t.severity, "reviewed": t.reviewed, "kfc": t.kfc} for t in k.terms],
         "attributes": [{"id": a.id, "name_ar": a.name_ar, "ar": a.ar, "approved": a.approved,
                         "note_ar": a.note_ar, "ayat": a.evidence_ayat, "reviewed": a.reviewed}
                        for a in k.attributes],
@@ -88,19 +88,20 @@ def explain(ref_id: str, lang: str = "en"):
     ay = k.ayah(ref_id)
     if not (t or a or ay):
         raise HTTPException(404, "لا بيان لهذا البند")
-    out = {"id": ref_id, "ayat": [], "hadith": [], "quotes": [], "reviewed": None}
+    out = {"id": ref_id, "ayat": [], "hadith": [], "quotes": [], "reviewed": None, "kfc": False}
     if t:
         out.update(title=t.id, note_ar=t.note_ar, approved=t.approved[lang], source=t.source,
-                   reviewed=t.reviewed)
+                   reviewed=t.reviewed, kfc=t.kfc)
     if a:
-        out.update(title=a.name_ar, note_ar=a.note_ar, approved=a.approved[lang], reviewed=a.reviewed)
+        out.update(title=a.name_ar, note_ar=a.note_ar, approved=a.approved[lang], reviewed=a.reviewed,
+                   kfc=bool(a.evidence_ayat))
         out["ayat"] = [{"ref": r, "ar": k.ayah(r).ar, "tr": k.ayah(r).tr[lang], "edition": k.editions.get(lang)}
                        for r in a.evidence_ayat if k.ayah(r)]
         out["hadith"] = [k.hadith[h] for h in a.evidence_hadith if h in k.hadith]
         out["quotes"] = [k.quotes[q] for q in a.quotes if q in k.quotes]
     if ay:
         out.update(title=f"الآية {ay.ref}", note_ar="ترجمة المعاني المعتمدة لهذه الآية.",
-                   approved=ay.tr[lang])
+                   approved=ay.tr[lang], kfc=True)
         out["ayat"] = [{"ref": ay.ref, "ar": ay.ar, "tr": ay.tr[lang], "edition": k.editions.get(lang)}]
     return out
 

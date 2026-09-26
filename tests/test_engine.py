@@ -75,3 +75,11 @@ def test_clean_samples_have_no_errors():
         if s["id"].endswith("clean"):
             r = run(s["arabic"], s["translation"], s["lang"], s["audience"], use_llm=False)
             assert [f for f in r["findings"] if f["type"] != 7] == [], s["id"]
+
+
+def test_kfc_quote_not_flagged_but_free_prose_is():
+    k_ar = "قال تعالى: ﴿قُلْ يَا أَيُّهَا الْكَافِرُونَ﴾."
+    quoted = run(k_ar, 'Allah said: « Dis : "Ô vous les infidèles ! » [109:1].', "fr", use_llm=False)
+    assert "forbidden:kafir" not in rules(quoted)
+    prose = run("ندعو الكافرين.", "Nous appelons les infidèles.", "fr", use_llm=False)
+    assert "forbidden:kafir" in rules(prose)

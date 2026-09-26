@@ -243,7 +243,8 @@
     parts.push(`<section><h4>${esc(b.title || "البيان")}</h4><p>${esc(b.note_ar || "")}</p>
       ${b.approved ? `<p class="bayan-tr">${esc(b.approved)}</p>` : ""}
       ${b.source ? `<p class="bayan-cite">المرجع: ${esc(b.source)}</p>` : ""}
-      ${b.reviewed === false ? `<p class="pending">◆ هذا البند بانتظار اعتماد المراجع الشرعي.</p>` : ""}</section>`);
+      ${b.kfc ? `<p class="approved-kfc">◆ المقابل معتمد وفق ترجمة معاني القرآن الصادرة عن مجمع الملك فهد.</p>`
+        : (b.reviewed === false ? `<p class="pending">◆ هذا البند بانتظار اعتماد المراجع الشرعي.</p>` : "")}</section>`);
     if (b.ayat?.length) parts.push(`<section><h4>من ترجمة المعاني المعتمدة</h4>${b.ayat.map((a) =>
       `<p class="bayan-ayah">﴿${esc(a.ar)}﴾ <small>[${esc(a.ref)}]</small></p><p class="bayan-tr">${esc(a.tr)}</p><p class="bayan-cite">${esc(a.edition || "")}</p>`).join("")}</section>`);
     if (b.hadith?.length) parts.push(`<section><h4>من السنة</h4>${b.hadith.map((h) =>
