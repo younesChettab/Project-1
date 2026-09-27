@@ -83,3 +83,15 @@ def test_kfc_quote_not_flagged_but_free_prose_is():
     assert "forbidden:kafir" not in rules(quoted)
     prose = run("ندعو الكافرين.", "Nous appelons les infidèles.", "fr", use_llm=False)
     assert "forbidden:kafir" in rules(prose)
+
+
+def test_istiwa_correction_does_not_duplicate_throne():
+    t = "And God has established His authority over the Throne."
+    r = run("والله ﴿عَلَى الْعَرْشِ اسْتَوَىٰ﴾.", t, "en", use_llm=False)
+    ids = {f["id"] for f in r["findings"] if f["rule"] == "tawil:sifah-istiwa"}
+    fixed = apply_corrections(t, r["findings"], ids)
+    assert fixed.count("Throne") == 1 and "has rose" not in fixed
+    t2 = "Et Allah a pris le contrôle du Trône."
+    r2 = run("ثم استوى على العرش.", t2, "fr", use_llm=False)
+    ids2 = {f["id"] for f in r2["findings"] if f["rule"] == "tawil:sifah-istiwa"}
+    assert apply_corrections(t2, r2["findings"], ids2).count("Trône") == 1

@@ -96,7 +96,7 @@ terms:
     ar: ['اولياء الله', 'اولياء', 'ولي الله', 'الاولياء']
     translit: ['auliy[aā]', 'awliy[aā]', 'wal[iī]y?\b']
     gloss: {en: ['allies', 'friends of allah'], fr: ['alliés']}
-    forbidden: {en: ['saints?'], fr: ['saints?']}
+    forbidden: {en: ['saints?(?:\s+of\s+(?:allah|god))?'], fr: ['saints?(?:\s+d[’''] ?allah)?']}
     forbidden_type: 1
     approved: {en: 'Auliya'' of Allah (the believers who fear Allah)', fr: 'Awliya (alliés d’Allah)'}
     note_ar: 'أولياء الله هم المؤمنون المتقون كما في الآية ﴿الَّذِينَ آمَنُوا وَكَانُوا يَتَّقُونَ﴾؛ أما saints فمفهوم كنسي يرتبط بالتقديس والتوسل بالأشخاص.'
@@ -494,7 +494,7 @@ terms:
     ar: ['خاتم النبيين', 'خاتم الانبياء', 'خاتم الرسل']
     translit: ['kh[aā]tam']
     gloss: {en: [], fr: []}
-    forbidden: {en: ['seal of the prophets'], fr: ['sceau des prophètes']}
+    forbidden: {en: ['(?:the\s+)?seal of the prophets'], fr: ['(?:le\s+)?sceau des prophètes']}
     forbidden_type: 1
     approved: {en: 'the last (end) of the Prophets', fr: 'le dernier des Prophètes'}
     note_ar: 'خاتم النبيين: آخرهم فلا نبي بعده ﷺ؛ وترجمته بالختم (seal) وحده قد تُحمل على معنى «ختم التصديق» كما تأوّله بعض الفرق الضالة، فيُصرَّح بمعنى الآخرية.'
@@ -744,11 +744,11 @@ attributes:
     name_ar: 'صفة الاستواء'
     ar: ['استوى', 'استواء', 'استواءه', 'استوائه']
     tawil:
-      en: ['(?:established|assumed|asserted|took)\s+(?:his\s+)?(?:authority|control|dominion|sovereignty|power|mastery|charge|command)',
+      en: ['(?:ha[sd]\s+)?(?:established|assumed|asserted|took)\s+(?:his\s+)?(?:authority|control|dominion|sovereignty|power|mastery|charge|command)(?:\s+(?:over|on|of)\s+the\s+throne)?',
            '(?:mounted|conquered|subdued|dominated|seized)\s+(?:the\s+)?throne',
            'ascended\s+to\s+(?:power|authority)',
            '(?:reigns?|rules?)\s+(?:over|from)\s+the\s+throne']
-      fr: ['(?:a\s+)?pris\s+(?:le\s+)?(?:contrôle|pouvoir|possession)',
+      fr: ['(?:a\s+)?pris\s+(?:le\s+)?(?:contrôle|pouvoir|possession)(?:\s+(?:du|sur\s+le|de\s+le)\s+trône)?',
            '(?:s[’'']est\s+)?(?:emparé|rendu\s+maître)',
            '(?:domine|dominé|règne|régné)\s+(?:sur\s+)?(?:le\s+)?trône',
            'son\s+autorité\s+sur\s+le\s+trône']
@@ -809,7 +809,7 @@ attributes:
     name_ar: 'صفة النزول'
     ar: ['ينزل ربنا', 'ينزل الله', 'نزول الله', 'نزول الرب']
     tawil:
-      en: ['(?:mercy|command|angels?|blessings?|grace)\s+of\s+(?:our|the)\s+lord\s+(?:descends|comes\s+down)',
+      en: ['(?:the\s+)?(?:mercy|command|angels?|blessings?|grace)\s+of\s+(?:our|the)\s+lord\s+(?:descends|comes\s+down)',
            '(?:our|the)\s+lord[’'']s\s+(?:mercy|command|blessings?|grace)\s+(?:descends|comes\s+down)',
            '(?:his|allah[’'']s|god[’'']s)\s+(?:mercy|command|blessings?|grace)\s+(?:descends|comes\s+down)']
       fr: ['(?:la\s+miséricorde|l[’'']ordre|la\s+grâce)\s+de\s+notre\s+seigneur\s+descend',

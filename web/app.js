@@ -427,7 +427,8 @@
     for (const f of chosen) {
       if (f.end > last) continue;
       out = out.slice(0, f.start) + f.suggestion + out.slice(f.end);
-      spans.forEach((s) => { s.start += f.suggestion.length - (f.end - f.start); });
+      const delta = f.suggestion.length - (f.end - f.start);
+      spans.forEach((s) => { s.start += delta; s.end += delta; });
       spans.push({ start: f.start, end: f.start + f.suggestion.length });
       last = f.start;
     }
